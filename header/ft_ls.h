@@ -14,9 +14,10 @@
 # define FT_LS_H
 # include "../libft/libft.h"
 # include <dirent.h>
+# include <stdio.h>
 # include <errno.h>
 # include <sys/types.h>
-# include <sys/stat.h> 
+# include <sys/stat.h>
 
 
 
