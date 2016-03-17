@@ -6,7 +6,7 @@
 #    By: bndao <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/03/17 07:37:14 by bndao             #+#    #+#              #
-#    Updated: 2016/03/17 08:06:53 by bndao            ###   ########.fr        #
+#    Updated: 2016/03/17 22:54:18 by bndao            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,11 +38,11 @@ lib:
 	@echo "\033[1;32m-> Creating Library...\033[0m"
 	@make -C ./libft
 
+allclean: re clean
+
 clean:
 	@rm -f $(OBJ)
 	@echo "\033[0;36m\nFT_LS Directory Cleaned up.\033[0m"
-
-allclean: fclean all clean
 
 fclean: clean
 	@rm -f $(NAME)

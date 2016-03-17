@@ -12,19 +12,29 @@
 
 #include "ft_ls.h"
 
-int print_current_dir(int ac)
+int print_dir(int all, int ac, char **av)
 {
-  DIR *dir = NULL;
-  struct dirent *file = NULL;
+  DIR     *dir = NULL;
+  struct  dirent *file = NULL;
+  int     i;
 
-  if (ac == 1)
+  i = 1;
+  if (all == 0 && ac == 1)
     if ((dir = opendir("./")))
-    {
       while ((file = readdir(dir)))
-      {
         if (file->d_name[0] != '.')
           ft_putendl(file->d_name);
+  if (all == 0 && ac != 1)
+    while (av[i])
+    {
+      if ((dir = opendir(av[i])))
+      {
+        while ((file = readdir(dir)))
+          if (file->d_name[0] != '.')
+            ft_putendl(file->d_name);
       }
+      ft_putendl(av[i]);
+      i++;
     }
   if (closedir(dir) == -1)
   {
@@ -36,9 +46,6 @@ int print_current_dir(int ac)
 
 int     main(int ac, char **av)
 {
-  ft_putstr("This is a test for the program ");
-  ft_putendl(av[0]);
-  if (ac == 1)
-    print_current_dir(ac);
+  print_dir(0, ac, av);
   return (0);
 }
