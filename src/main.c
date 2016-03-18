@@ -12,17 +12,28 @@
 
 #include "ft_ls.h"
 
+void  title(int ac, char *str)
+{
+  if (ac >= 3 && is_dir(str) && str[0] != '.')
+    ft_printf("\n%s:\n", str);
+}
+
 void  dir_regfilenames(struct dirent *file, DIR *dir)
 {
   while ((file = readdir(dir)))
+  {
     if (file->d_name[0] != '.')
       ft_putendl(file->d_name);
+  }
 }
 
 int   print_dir(DIR *dir, struct dirent *file, char *str)
 {
   if ((dir = opendir(str)))
+  {
+      title(3, str);
       dir_regfilenames(file, dir);
+  }
   return (close_dir(dir));
 }
 

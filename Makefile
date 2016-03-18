@@ -6,7 +6,7 @@
 #    By: bndao <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/03/17 07:37:14 by bndao             #+#    #+#              #
-#    Updated: 2016/03/17 22:54:18 by bndao            ###   ########.fr        #
+#    Updated: 2016/03/18 04:20:58 by bndao            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,15 +28,15 @@ OBJ = $(SRC:.c=.o)
 all: lib $(NAME)
 
 $(NAME): $(OBJ)
-	@gcc $(FLAGS) -o $(NAME) $(OBJ) -I $(INC) -I libft/ -L libft/ -lft
+	@gcc $(FLAGS) -o $(NAME) $(OBJ) -I $(INC) -L ./ft_printf -lftprintf
 	@echo "\033[1;31m---- ft_ls Created !!! ----\033[0m"
 
 %.o:%.c
-	@gcc $(FLAGS) -c -o $@ $< -I $(INC) -I libft/
+	@gcc $(FLAGS) -c -o $@ $< -I $(INC) -I ft_printf/
 
 lib:
 	@echo "\033[1;32m-> Creating Library...\033[0m"
-	@make -C ./libft
+	@make -C ./ft_printf/
 
 allclean: re clean
 
@@ -46,8 +46,8 @@ clean:
 
 fclean: clean
 	@rm -f $(NAME)
-	@make fclean -C ./libft
+	@make fclean -C ./ft_printf/
 
 re: fclean all
 
-.PHONY: $(NAME) all lib clean fclean re
+.PHONY: $(NAME) all lib clean fclean re allclean

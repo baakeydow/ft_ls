@@ -31,3 +31,14 @@ int   is_dir(char *str)
       return (1);
   return (0);
 }
+
+t_pars  *init_data(int ac, char **av)
+{
+  t_pars		*ptr;
+
+  if (!(ptr = (t_pars *)malloc(sizeof(t_pars))))
+    return (NULL);
+  ptr->av = av;
+  ptr->ac = ac;
+  return (ptr);
+}
