@@ -18,8 +18,10 @@
 # include <errno.h>
 # include <sys/types.h>
 # include <sys/dir.h>
+# include <uuid/uuid.h>
 # include <sys/stat.h>
 
-
+int   close_dir(DIR *dir);
+int   is_dir(char *str);
 
 #endif
