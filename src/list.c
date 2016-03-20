@@ -60,7 +60,6 @@ t_pars    *init_data(t_l *l, t_mylist *b)
   if (!(ptr = (t_pars *)malloc(sizeof(t_pars))))
     return (NULL);
   ptr->l = l;
-  ptr->st_mode = l->s.st_mode;
   ptr->b = b;
   return (ptr);
 }
