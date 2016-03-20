@@ -65,48 +65,29 @@ int   print(int all, int ac, char **av)
   return (1);
 }
 
-t_l      *init_list(t_l *start, char **av)
-{
-  int    i;
-
-  i = 2;
-  while (av[i])
-    push_back_node(start, l_new(av[i++]));
-  return (start);
-}
-
-t_pars    *init_data(t_l *l, t_mylist *b)
-{
-  t_pars		*ptr;
-
-  if (!(ptr = (t_pars *)malloc(sizeof(t_pars))))
-    return (NULL);
-  ptr->l = l;
-  ptr->b = b;
-  return (ptr);
-}
-
 int     main(int ac, char **av)
 {
   t_mylist  *b;
   t_l       *l;
   t_pars    *p;
+  struct  stat s;
 
   if (!(b = (t_mylist *)malloc(sizeof(t_mylist))))
     return (-1);
   if (ac >= 3)
   {
-    l = l_new(av[1]);
+    l = l_new(av[1], s);
     b->begin = l;
-    l = init_list(l, av);
+    l = init_list(l, av, s);
     l = b->begin;
     p = init_data(l, b);
     while (p->l)
     {
       ft_putendl(p->l->arg);
+      ft_putnbr(p->l->s.st_mode);
       p->l = p->l->next;
     }
   }
-  // print(0, ac, av);
+//  print(0, ac, av);
   return (0);
 }

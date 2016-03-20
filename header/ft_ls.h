@@ -25,6 +25,7 @@
 typedef struct      s_l
 {
   char              *arg;
+  struct stat       s;
   struct s_l        *next;
   struct s_l        *prev;
 }                   t_l;
@@ -38,10 +39,13 @@ typedef struct      s_pars
 {
   t_l               *l;
   t_mylist          *b;
+  int               st_mode;
   int               ac;
 }                   t_pars;
 
-t_l   				      *l_new(char *arg);
+t_l   				      *l_new(char *arg, struct stat s);
+t_l                 *init_list(t_l *start, char **av, struct stat s);
+t_pars              *init_data(t_l *l, t_mylist *b);
 void				        push_back_node(t_l *b_list, t_l *list);
 int                 print(int all, int ac, char **av);
 int                 print_av(DIR *dir, struct dirent *file, char **av);
@@ -50,6 +54,5 @@ void                dir_regfilenames(struct dirent *file, DIR *dir);
 void                title(int ac, char *str);
 int                 close_dir(DIR *dir);
 int                 is_dir(char *str);
-t_pars              *init_data(t_l *l, t_mylist *b);
 
 #endif

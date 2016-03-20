@@ -20,6 +20,7 @@ SRCDIR = src/
 
 SRC = $(SRCDIR)main.c \
 		$(SRCDIR)tools.c \
+		$(SRCDIR)list.c \
 
 INC = header
 

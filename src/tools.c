@@ -31,32 +31,3 @@ int   is_dir(char *str)
       return (1);
   return (0);
 }
-
-t_l	 			*l_new(char *arg)
-{
-	t_l  		*node;
-
-	if (!(node = (t_l *)malloc(sizeof(t_l))))
-		return (NULL);
-	node->arg = arg;
-	node->prev = NULL;
-	node->next = NULL;
-	return (node);
-}
-
-void				push_back_node(t_l *b_list, t_l *list)
-{
-	t_l    		*tmp;
-
-	if (b_list == NULL)
-		b_list = list;
-	else
-	{
-		tmp = b_list;
-		while (tmp->next)
-			tmp = tmp->next;
-		list->prev = tmp;
-		list->next = NULL;
-		tmp->next = list;
-	}
-}
