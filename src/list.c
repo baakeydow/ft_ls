@@ -26,7 +26,7 @@ t_l	 			*l_new(char *arg, struct stat s)
 	return (node);
 }
 
-void				push_back_node(t_l *b_list, t_l *list)
+void				push_back_list(t_l *b_list, t_l *list)
 {
 	t_l    		*tmp;
 
@@ -43,13 +43,25 @@ void				push_back_node(t_l *b_list, t_l *list)
 	}
 }
 
+void					swap_elem_data(t_l *elem1, t_l *elem2)
+{
+  t_l		      tmp;
+
+  tmp.arg = elem1->arg;
+  elem1->arg = elem2->arg;
+  elem2->arg = tmp.arg;
+  tmp.s = elem1->s;
+  elem1->s = elem2->s;
+  elem2->s = tmp.s;
+}
+
 t_l      *init_list(t_l *start, char **av, struct stat s)
 {
   int    i;
 
   i = 2;
   while (av[i])
-    push_back_node(start, l_new(av[i++], s));
+    push_back_list(start, l_new(av[i++], s));
   return (start);
 }
 
@@ -62,4 +74,20 @@ t_pars    *init_data(t_l *l, t_mylist *b)
   ptr->l = l;
   ptr->b = b;
   return (ptr);
+}
+
+t_pars  	*init_all(char **av, struct stat s)
+{
+  t_mylist  *b;
+  t_l       *l;
+  t_pars    *p;
+
+	if (!(b = (t_mylist *)malloc(sizeof(t_mylist))))
+    return (NULL);
+  l = l_new(av[1], s);
+  b->begin = l;
+  l = init_list(l, av, s);
+  l = b->begin;
+  p = init_data(l, b);
+  return (p);
 }

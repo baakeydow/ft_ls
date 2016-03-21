@@ -12,13 +12,7 @@
 
 #include "ft_ls.h"
 
-void  title(int ac, char *str)
-{
-  if (ac >= 3 && is_dir(str) && str[0] != '.')
-    ft_printf("\n%s:\n", str);
-}
-
-void  dir_regfilenames(struct dirent *file, DIR *dir)
+void    dir_regfilenames(struct dirent *file, DIR *dir)
 {
   while ((file = readdir(dir)))
   {
@@ -27,67 +21,51 @@ void  dir_regfilenames(struct dirent *file, DIR *dir)
   }
 }
 
-int   print_dir(DIR *dir, struct dirent *file, char *str)
+int     print_dir(int ac, DIR *dir, struct dirent *file, t_pars *p)
 {
-  if ((dir = opendir(str)))
+  if ((dir = opendir(p->l->arg)))
   {
-      title(3, str);
+      title(ac, p);
       dir_regfilenames(file, dir);
   }
   return (close_dir(dir));
 }
 
-int   print_av(DIR *dir, struct dirent *file, char **av)
+int     print_av(int ac, char **av, struct stat s)
 {
-  int     i;
-
-  i = 1;
-  while (av[i])
-  {
-    if (is_dir(av[i]))
-      print_dir(dir, file, av[i]);
-    if (!is_dir(av[i]))
-      ft_putendl(av[i]);
-    i++;
-  }
-  return (close_dir(dir));
-}
-
-int   print(int all, int ac, char **av)
-{
+  t_pars  *p;
   DIR     *dir = NULL;
   struct  dirent *file = NULL;
 
-  if (all == 0 && ac == 1)
-    print_dir(dir, file, "./");
-  if (all == 0 && ac != 1)
-    print_av(dir, file, av);
+  p = init_all(av, s);
+  while (p->l)
+  {
+    print_dir(ac, dir, file, p);
+    p->l = p->l->next;
+  }
+  return (1);
+}
+
+int     print_no_av(int ac, struct stat s)
+{
+  DIR     *dir = NULL;
+  struct  dirent *file = NULL;
+  t_pars  *p;
+  char    *str;
+
+  str = "./";
+  p = init_all(&str, s);
+  print_dir(ac, dir, file, p);
   return (1);
 }
 
 int     main(int ac, char **av)
 {
-  t_mylist  *b;
-  t_l       *l;
-  t_pars    *p;
   struct  stat s;
 
-  if (!(b = (t_mylist *)malloc(sizeof(t_mylist))))
-    return (-1);
-  if (ac >= 3)
-  {
-    l = l_new(av[1], s);
-    b->begin = l;
-    l = init_list(l, av, s);
-    l = b->begin;
-    p = init_data(l, b);
-    while (p->l)
-    {
-      ft_putendl(p->l->arg);
-      ft_putnbr(p->l->s.st_mode);
-      p->l = p->l->next;
-    }
-  }
-//  print(0, ac, av);
+  if (ac != 1)
+    print_av(ac, av, s);
+  else
+    print_no_av(ac, s);
   return (0);
 }

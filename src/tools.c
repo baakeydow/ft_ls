@@ -31,3 +31,11 @@ int   is_dir(char *str)
       return (1);
   return (0);
 }
+
+void    title(int ac, t_pars *p)
+{
+  if (p->l->prev && ac >= 3 && is_dir(p->l->arg) && p->l->arg[0] != '.')
+    ft_printf("\n%s:\n", p->l->arg);
+  else if (ac >= 3 && is_dir(p->l->arg) && p->l->arg[0] != '.')
+    ft_printf("%s:\n", p->l->arg);
+}
