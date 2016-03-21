@@ -51,10 +51,13 @@ int     print_no_av(int ac, struct stat s)
   DIR     *dir = NULL;
   struct  dirent *file = NULL;
   t_pars  *p;
-  char    *str;
+  char    **str;
 
-  str = "./";
-  p = init_all(&str, s);
+  str = (char **)malloc(sizeof(char *) * 3);
+  str[0] = "";
+  str[1] = ".";
+  str[2] = NULL;
+  p = init_all(str, s);
   print_dir(ac, dir, file, p);
   return (1);
 }

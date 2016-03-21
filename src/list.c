@@ -60,6 +60,8 @@ t_l      *init_list(t_l *start, char **av, struct stat s)
   int    i;
 
   i = 2;
+	if (!av[i])
+		return (start);
   while (av[i])
     push_back_list(start, l_new(av[i++], s));
   return (start);
