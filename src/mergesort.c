@@ -36,9 +36,7 @@ void part(t_l *head, t_l **front, t_l **back)
       }
     }
     *front = head;
-    (*front)->prev = slow->next;
     *back = slow->next;
-    (*back)->prev = NULL;
     slow->next = NULL;
   }
 }
@@ -52,7 +50,7 @@ t_l *merge_lists(t_l *a, t_l *b)
     return (b);
   else if (!b)
     return (a);
-  if (a->arg[0] <= b->arg[0])
+  if (ft_strcmp(a->arg, b->arg) < 0)
   {
     merge_it = a;
     merge_it->next = merge_lists(a->next, b);

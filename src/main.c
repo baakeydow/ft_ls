@@ -28,6 +28,8 @@ int     print_dir(int ac, DIR *dir, struct dirent *file, t_pars *p)
     title(ac, p);
     dir_regfilenames(file, dir);
   }
+  if (p->l->next)
+    ft_putchar('\n');
   return (close_dir(dir));
 }
 
