@@ -44,6 +44,7 @@ typedef struct      s_pars
 }                   t_pars;
 
 t_l   				      *l_new(char *arg, struct stat s);
+void                merge_sort(t_l **source);
 t_l                 *init_list(t_l *start, char **av, struct stat s);
 t_pars              *init_data(t_l *l, t_mylist *b);
 t_pars              *init_all(char **av, struct stat s);

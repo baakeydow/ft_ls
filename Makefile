@@ -6,7 +6,7 @@
 #    By: bndao <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/03/17 07:37:14 by bndao             #+#    #+#              #
-#    Updated: 2016/03/20 16:01:02 by bndao            ###   ########.fr        #
+#    Updated: 2016/03/22 02:04:22 by bndao            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ SRCDIR = src/
 SRC = $(SRCDIR)main.c \
 		$(SRCDIR)tools.c \
 		$(SRCDIR)list.c \
+		$(SRCDIR)mergesort.c \
 
 INC = header
 

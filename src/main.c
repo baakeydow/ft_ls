@@ -25,8 +25,8 @@ int     print_dir(int ac, DIR *dir, struct dirent *file, t_pars *p)
 {
   if ((dir = opendir(p->l->arg)))
   {
-      title(ac, p);
-      dir_regfilenames(file, dir);
+    title(ac, p);
+    dir_regfilenames(file, dir);
   }
   return (close_dir(dir));
 }
@@ -43,6 +43,7 @@ int     print_av(int ac, char **av, struct stat s)
     print_dir(ac, dir, file, p);
     p->l = p->l->next;
   }
+  free(p);
   return (1);
 }
 
@@ -53,12 +54,15 @@ int     print_no_av(int ac, struct stat s)
   t_pars  *p;
   char    **str;
 
-  str = (char **)malloc(sizeof(char *) * 3);
+  if (!(str = (char **)malloc(sizeof(char *) * 3)))
+    return (0);
   str[0] = "";
   str[1] = ".";
   str[2] = NULL;
   p = init_all(str, s);
   print_dir(ac, dir, file, p);
+  free(str);
+  free(p);
   return (1);
 }
 
