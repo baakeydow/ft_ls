@@ -36,7 +36,9 @@ void part(t_l *head, t_l **front, t_l **back)
       }
     }
     *front = head;
+    (*front)->prev = slow->next;
     *back = slow->next;
+    (*back)->prev = NULL;
     slow->next = NULL;
   }
 }

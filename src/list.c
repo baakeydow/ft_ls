@@ -87,10 +87,10 @@ t_pars  	*init_all(char **av, struct stat s)
 	if (!(b = (t_mylist *)malloc(sizeof(t_mylist))))
     return (NULL);
   l = l_new(av[1], s);
-	merge_sort(&l);
   b->begin = l;
   l = init_list(l, av, s);
   l = b->begin;
+	merge_sort(&l);
   p = init_data(l, b);
   return (p);
 }
