@@ -12,58 +12,71 @@
 
 #include "ft_ls.h"
 
-void    dir_regfilenames(struct dirent *file, DIR *dir)
+t_l     *getdir_nodes(char *str, struct stat s)
 {
-  while ((file = readdir(dir)))
-  {
-    if (file->d_name[0] != '.')
-      ft_putendl(file->d_name);
-  }
-}
+  struct dirent *f = NULL;
+  struct dirent *file = NULL;
+  DIR           *dir = NULL;
+  t_l           *l;
 
-int     print_dir(int ac, DIR *dir, struct dirent *file, t_pars *p)
-{
-  if ((dir = opendir(p->l->arg)))
-  {
-    title(ac, p);
-    dir_regfilenames(file, dir);
-  }
-  if (p->l->next)
-    ft_putchar('\n');
-  return (close_dir(dir));
+  if (!(dir = opendir(str)))
+    return (NULL);
+  f = readdir(dir);
+  l = l_new(f->d_name, s);
+  while ((file = readdir(dir)))
+    push_back_list(l, l_new(file->d_name, s));
+  close_dir(dir);
+  return (l);
 }
 
 int     print_av(int ac, char **av, struct stat s)
 {
   t_pars  *p;
-  DIR     *dir = NULL;
-  struct  dirent *file = NULL;
+  t_l     *lav;
+  t_l     *l;
 
-  p = init_all(av, s);
-  while (p->l)
+  lav = l_new(av[1], s);
+  lav = init_list(lav, av, s);
+  merge_sort(&lav);
+  while (lav)
   {
-    print_dir(ac, dir, file, p);
-    p->l = p->l->next;
+    l = getdir_nodes(lav->arg, s);
+    p = init_current(ac, l);
+    if (ac != 2)
+      title(lav);
+    while (p->l)
+    {
+      ft_printf("%s\n", p->l->arg);
+      p->l = p->l->next;
+    }
+    if (!l)
+    {
+      ft_printf("%s\n", lav->arg);
+      if (lav->next && is_dir(lav->next->arg))
+        ft_putchar('\n');
+    }
+    if (lav->next && l)
+      ft_putchar('\n');
+    free(p);
+    free(l);
+    lav = lav->next;
   }
-  free(p);
+  free(lav);
   return (1);
 }
 
-int     print_no_av(int ac, struct stat s)
+int     print(int ac, struct stat s)
 {
-  DIR     *dir = NULL;
-  struct  dirent *file = NULL;
   t_pars  *p;
-  char    **str;
+  t_l     *l;
 
-  if (!(str = (char **)malloc(sizeof(char *) * 3)))
-    return (0);
-  str[0] = "";
-  str[1] = ".";
-  str[2] = NULL;
-  p = init_all(str, s);
-  print_dir(ac, dir, file, p);
-  free(str);
+  l = getdir_nodes("./", s);
+  p = init_current(ac, l);
+  while (p->l)
+  {
+    ft_printf("%s\n", p->l->arg);
+    p->l = p->l->next;
+  }
   free(p);
   return (1);
 }
@@ -72,9 +85,10 @@ int     main(int ac, char **av)
 {
   struct  stat s;
 
+  lstat(av[1], &s);
   if (ac != 1)
     print_av(ac, av, s);
   else
-    print_no_av(ac, s);
+    print(ac, s);
   return (0);
 }
