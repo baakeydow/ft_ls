@@ -15,10 +15,12 @@
 void    display_av(t_pars *p, t_l *lav, t_l *l)
 {
   if (p->ac != 2)
-    title(lav);
+    title(lav, p);
   while (p->l)
   {
-    ft_printf("%s\n", p->l->arg);
+    if (!p->a)
+      if (p->l->arg[0] != '.')
+        ft_printf("%s\n", p->l->arg);
     p->l = p->l->next;
   }
   if (!l)
@@ -43,7 +45,7 @@ int     print_av(int ac, char **av, struct stat s)
   while (lav)
   {
     l = getdir_nodes(lav->arg, s);
-    p = init_data(ac, l);
+    p = init_data(ac, av, l);
     display_av(p, lav, l);
     free(p);
     free(l);
@@ -53,16 +55,18 @@ int     print_av(int ac, char **av, struct stat s)
   return (1);
 }
 
-int     print(int ac, struct stat s)
+int     print(int ac, char **av, struct stat s)
 {
   t_pars  *p;
   t_l     *l;
 
   l = getdir_nodes("./", s);
-  p = init_data(ac, l);
+  p = init_data(ac, av, l);
   while (p->l)
   {
-    ft_printf("%s\n", p->l->arg);
+    if (!p->a)
+      if (p->l->arg[0] != '.')
+        ft_printf("%s\n", p->l->arg);
     p->l = p->l->next;
   }
   free(p);
@@ -78,6 +82,6 @@ int     main(int ac, char **av)
   if (ac != 1 && !(ac == 2 && ft_strcmp(av[1], "-1") == 0))
     print_av(ac, av, s);
   else
-    print(ac, s);
+    print(ac, av, s);
   return (0);
 }

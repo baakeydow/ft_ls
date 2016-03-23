@@ -1,40 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tools.c                                            :+:      :+:    :+:   */
+/*   parse_it.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bndao <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/03/17 07:53:38 by bndao             #+#    #+#             */
-/*   Updated: 2016/03/17 07:54:02 by bndao            ###   ########.fr       */
+/*   Created: 2016/03/23 06:59:50 by bndao             #+#    #+#             */
+/*   Updated: 2016/03/23 07:00:05 by bndao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-int   close_dir(DIR *dir)
+int       get_a(char **av)
 {
-  if (dir && closedir(dir) == -1)
-  {
-    perror("Error ");
-    return(EXIT_FAILURE);
-  }
-  return (1);
-}
-
-int   is_dir(char *str)
-{
-  struct  stat s;
-
-  if (lstat(str, &s) == 0)
-    if (s.st_mode & S_IFDIR)
-      return (1);
+  if (av[1])
+    if (av[1][0] == '-')
+      if (av[1][1] == 'a')
+        return (1);
   return (0);
-}
-
-void    title(t_l *lav, t_pars *p)
-{
-  if (is_dir(lav->arg) && !p->a)
-    if (lav->arg[0]!= '.')
-      ft_printf("%s:\n", lav->arg);
 }
