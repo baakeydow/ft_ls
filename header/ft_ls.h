@@ -29,14 +29,26 @@ typedef struct      s_l
   struct s_l        *next;
 }                   t_l;
 
+typedef struct      s_opt
+{
+  char              **av;
+  int               ac;
+  int               one;
+  int               l;
+  int               rm;
+  int               a;
+  int               r;
+  int               t;
+}                   t_opt;
+
 typedef struct      s_pars
 {
   t_l               *l;
-  int               a;
-  int               ac;
+  t_opt             *o;
 }                   t_pars;
 
-int                 get_a(char **av);
+t_opt               *get_opt(int ac, char **av);
+int		         			find_char(char **av, char c);
 
 t_l   				      *l_new(char *arg, struct stat s);
 void				        push_back_list(t_l *b_list, t_l *list);
@@ -44,14 +56,16 @@ void                merge_sort(t_l **source);
 t_l                 *getdir_nodes(char *str, struct stat s);
 
 t_l                 *initav_list(t_l *start, char **av, struct stat s);
-t_pars              *init_data(int ac, char **av, t_l *l);
+t_pars              *init_data(t_opt *o, t_l *l);
 
-int                 print_av(int ac, char **av, struct stat s);
-int                 print(int ac, char **av, struct stat s);
+int                 print_av(t_opt *o, struct stat s);
+int                 print(t_opt *o, struct stat s);
 
 void                display_av(t_pars *p, t_l *lav, t_l *l);
 void                title(t_l *lav, t_pars *p);
 int                 close_dir(DIR *dir);
 int                 is_dir(char *str);
+int                 is_opt(char *fmt);
+int                 thereisno_opt(t_opt *o);
 
 #endif

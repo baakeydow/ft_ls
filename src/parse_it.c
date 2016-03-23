@@ -12,11 +12,42 @@
 
 #include "ft_ls.h"
 
-int       get_a(char **av)
+int					find_char(char **av, char c)
 {
-  if (av[1])
-    if (av[1][0] == '-')
-      if (av[1][1] == 'a')
-        return (1);
-  return (0);
+	int				i;
+  int       j;
+
+  j = 1;
+  while (av[j])
+  {
+    if (av[j][0] == '-')
+    {
+      i = 0;
+	    while (av[j][i])
+      {
+		    if (av[j][i] == c)
+			    return (1);
+		    i++;
+	    }
+    }
+    j++;
+  }
+	return (0);
+}
+
+t_opt      *get_opt(int ac, char **av)
+{
+  t_opt   *o;
+
+  if (!(o = (t_opt *)malloc(sizeof(t_opt))))
+    return (NULL);
+  o->av = av;
+  o->ac = ac;
+  o->one = find_char(av, '1');
+  o->l = find_char(av, 'l');
+  o->rm = find_char(av, 'R');
+  o->a = find_char(av, 'a');
+  o->r = find_char(av, 'r');
+  o->t = find_char(av, 't');
+  return (o);
 }

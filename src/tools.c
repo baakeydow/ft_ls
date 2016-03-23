@@ -34,7 +34,32 @@ int   is_dir(char *str)
 
 void    title(t_l *lav, t_pars *p)
 {
-  if (is_dir(lav->arg) && !p->a)
+  if (is_dir(lav->arg) && !p->o->a)
     if (lav->arg[0]!= '.')
       ft_printf("%s:\n", lav->arg);
+}
+
+int     thereisno_opt(t_opt *o)
+{
+  if (!o->l && !o->rm && !o->rm && !o->a && !o->r && !o->t)
+    return (1);
+  return (0);
+}
+
+int     is_opt(char *fmt)
+{
+  int  i;
+
+  i = 0;
+  if (fmt[0] != '-')
+    return (0);
+  while (fmt[i])
+  {
+    if (fmt[i] != '-' && fmt[i] != '1' && fmt[i] != 'l' && fmt[i] != 'R' &&
+                         fmt[i] != 'a' && fmt[i] != 'r' && fmt[i] != 't' &&
+                       fmt[i] != '\0')
+      return (0);
+    i++;
+  }
+  return (1);
 }

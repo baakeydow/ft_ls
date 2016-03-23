@@ -71,14 +71,13 @@ t_l      *initav_list(t_l *start, char **av, struct stat s)
   return (start);
 }
 
-t_pars    *init_data(int ac, char **av, t_l *l)
+t_pars    *init_data(t_opt *o, t_l *l)
 {
   t_pars		*ptr;
 
   if (!(ptr = (t_pars *)malloc(sizeof(t_pars))))
     return (NULL);
   ptr->l = l;
-	ptr->a = get_a(av);
-	ptr->ac = ac;
+	ptr->o = get_opt(o->ac, o->av);
   return (ptr);
 }
