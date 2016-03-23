@@ -86,7 +86,7 @@ int     main(int ac, char **av)
   struct  stat s;
 
   lstat(av[1], &s);
-  if (ac != 1)
+  if (ac != 1 && !(ac == 2 && ft_strcmp(av[1], "-1") == 0))
     print_av(ac, av, s);
   else
     print(ac, s);
