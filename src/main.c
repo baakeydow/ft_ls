@@ -18,12 +18,9 @@ void    display_av(t_pars *p, t_l *lav, t_l *l)
     title(lav, p);
   while (p->l)
   {
-    if (!p->o->a)
-    {
-      if (p->l->arg[0] != '.')
+    if (p->o->a)
         ft_printf("%s\n", p->l->arg);
-    }
-    else
+    else if (p->l->arg[0] != '.')
         ft_printf("%s\n", p->l->arg);
     p->l = p->l->next;
   }

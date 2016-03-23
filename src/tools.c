@@ -35,7 +35,11 @@ int   is_dir(char *str)
 void    title(t_l *lav, t_pars *p)
 {
   if (is_dir(lav->arg) && !p->o->a)
+  {
     if (lav->arg[0]!= '.')
+      ft_printf("%s:\n", lav->arg);
+  }
+  else if (is_dir(lav->arg) && p->o->a)
       ft_printf("%s:\n", lav->arg);
 }
 
