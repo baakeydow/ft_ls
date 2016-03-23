@@ -41,7 +41,25 @@ void				push_back_list(t_l *b_list, t_l *new)
 	}
 }
 
-t_l      *init_list(t_l *start, char **av, struct stat s)
+t_l     *getdir_nodes(char *str, struct stat s)
+{
+  struct dirent *f = NULL;
+  struct dirent *file = NULL;
+  DIR           *dir = NULL;
+  t_l           *l;
+
+  if (!(dir = opendir(str)))
+    return (NULL);
+  f = readdir(dir);
+  l = l_new(f->d_name, s);
+  while ((file = readdir(dir)))
+    push_back_list(l, l_new(file->d_name, s));
+	merge_sort(&l);
+  close_dir(dir);
+  return (l);
+}
+
+t_l      *initav_list(t_l *start, char **av, struct stat s)
 {
   int    i;
 
@@ -62,13 +80,4 @@ t_pars    *init_data(int ac, t_l *l)
   ptr->l = l;
 	ptr->ac = ac;
   return (ptr);
-}
-
-t_pars  	*init_current(int ac, t_l *l)
-{
-  t_pars    *p;
-
-	merge_sort(&l);
-	p = init_data(ac, l);
-  return (p);
 }

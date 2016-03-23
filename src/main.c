@@ -12,21 +12,23 @@
 
 #include "ft_ls.h"
 
-t_l     *getdir_nodes(char *str, struct stat s)
+void    display_av(t_pars *p, t_l *lav, t_l *l)
 {
-  struct dirent *f = NULL;
-  struct dirent *file = NULL;
-  DIR           *dir = NULL;
-  t_l           *l;
-
-  if (!(dir = opendir(str)))
-    return (NULL);
-  f = readdir(dir);
-  l = l_new(f->d_name, s);
-  while ((file = readdir(dir)))
-    push_back_list(l, l_new(file->d_name, s));
-  close_dir(dir);
-  return (l);
+  if (p->ac != 2)
+    title(lav);
+  while (p->l)
+  {
+    ft_printf("%s\n", p->l->arg);
+    p->l = p->l->next;
+  }
+  if (!l)
+  {
+    ft_printf("%s\n", lav->arg);
+    if (lav->next && is_dir(lav->next->arg))
+      ft_putchar('\n');
+  }
+  if (lav->next && l)
+    ft_putchar('\n');
 }
 
 int     print_av(int ac, char **av, struct stat s)
@@ -36,27 +38,13 @@ int     print_av(int ac, char **av, struct stat s)
   t_l     *l;
 
   lav = l_new(av[1], s);
-  lav = init_list(lav, av, s);
+  lav = initav_list(lav, av, s);
   merge_sort(&lav);
   while (lav)
   {
     l = getdir_nodes(lav->arg, s);
-    p = init_current(ac, l);
-    if (ac != 2)
-      title(lav);
-    while (p->l)
-    {
-      ft_printf("%s\n", p->l->arg);
-      p->l = p->l->next;
-    }
-    if (!l)
-    {
-      ft_printf("%s\n", lav->arg);
-      if (lav->next && is_dir(lav->next->arg))
-        ft_putchar('\n');
-    }
-    if (lav->next && l)
-      ft_putchar('\n');
+    p = init_data(ac, l);
+    display_av(p, lav, l);
     free(p);
     free(l);
     lav = lav->next;
@@ -71,13 +59,14 @@ int     print(int ac, struct stat s)
   t_l     *l;
 
   l = getdir_nodes("./", s);
-  p = init_current(ac, l);
+  p = init_data(ac, l);
   while (p->l)
   {
     ft_printf("%s\n", p->l->arg);
     p->l = p->l->next;
   }
   free(p);
+  free(l);
   return (1);
 }
 
