@@ -14,9 +14,11 @@
 
 void     display_error(t_l *lav)
 {
+  struct stat s;
+
   while (lav)
   {
-    if (lav->s.st_ino == 1)
+    if (lstat(lav->arg, &s) == -1)
     {
       ft_printf("ft_ls: ");
       perror(lav->arg);

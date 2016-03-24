@@ -49,7 +49,7 @@ void    display_av(t_pars *p, t_l *lav, t_l *l)
   }
   if (!l)
   {
-    if (!is_opt(lav->arg) && lav->s.st_ino != 1)
+    if (!is_opt(lav->arg))
       ft_printf("%s\n", lav->arg);;
     if (!is_opt(lav->arg) && lav->next && is_dir(lav->next->arg))
       ft_putchar('\n');
@@ -70,11 +70,12 @@ int     print_av(t_opt *o, struct stat s)
   merge_sort(&lav);
   while (lav)
   {
-    l = getdir_nodes(lav->arg, s);
-    p = init_data(o, l);
-    display_av(p, lav, l);
-    free(p);
-    free(l);
+    if (lstat(lav->arg, &s) != -1)
+    {
+      l = getdir_nodes(lav->arg, s);
+      p = init_data(o, l);
+      display_av(p, lav, l);
+    }
     lav = lav->next;
   }
   free(lav);
