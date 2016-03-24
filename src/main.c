@@ -49,9 +49,9 @@ void    display_av(t_pars *p, t_l *lav, t_l *l)
   }
   if (!l)
   {
-    if (!is_opt(lav->arg))
+    if (stat(lav->arg, &(lav->s)) == 0)
       ft_printf("%s\n", lav->arg);;
-    if (!is_opt(lav->arg) && lav->next && is_dir(lav->next->arg))
+    if (stat(lav->arg, &(lav->s)) == 0 && lav->next && is_dir(lav->next->arg))
       ft_putchar('\n');
   }
   if (lav->next && l)
@@ -70,11 +70,13 @@ int     print_av(t_opt *o, struct stat s)
   merge_sort(&lav);
   while (lav)
   {
-    if (lstat(lav->arg, &s) != -1)
+    if (stat(lav->arg, &s) == 0)
     {
       l = getdir_nodes(lav->arg, s);
       p = init_data(o, l);
       display_av(p, lav, l);
+      free(l);
+      free(p);
     }
     lav = lav->next;
   }
