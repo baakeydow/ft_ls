@@ -18,7 +18,7 @@ void     display_error(t_l *lav)
 
   while (lav)
   {
-    if (lstat(lav->arg, &s) == -1)
+    if (stat(lav->arg, &s) != 0 && !is_opt(lav->arg))
     {
       ft_printf("ft_ls: ");
       perror(lav->arg);
@@ -58,9 +58,21 @@ void    title(t_l *lav, t_pars *p)
       ft_printf("%s:\n", lav->arg);
 }
 
-int     thereisno_opt(t_opt *o)
+int     thereisno_file(t_opt *o)
 {
-  if (!o->l && !o->rm && !o->rm && !o->a && !o->r && !o->t)
+  int i;
+  int cmp;
+  struct stat s;
+
+  i = 1;
+  cmp = 0;
+  while (o->av[i])
+  {
+    if (stat(o->av[i], &s) == 0)
+      cmp++;
+    i++;
+  }
+  if (cmp == 0)
     return (1);
   return (0);
 }
@@ -70,7 +82,7 @@ int     is_opt(char *fmt)
   int  i;
 
   i = 0;
-  if (fmt[0] != '-')
+  if (fmt[0] != '-' || !fmt[1])
     return (0);
   while (fmt[i])
   {

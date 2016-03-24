@@ -67,6 +67,6 @@ void                title(t_l *lav, t_pars *p);
 int                 close_dir(DIR *dir);
 int                 is_dir(char *str);
 int                 is_opt(char *fmt);
-int                 thereisno_opt(t_opt *o);
+int                 thereisno_file(t_opt *o);
 
 #endif

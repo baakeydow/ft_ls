@@ -90,8 +90,8 @@ int     main(int ac, char **av)
   t_opt        *o;
 
   o = get_opt(ac, av);
-  lstat(av[1], &s);
-  if (ac != 1 && !(ac == 2 && (o->one || o->a)))
+  lstat(av[0], &s);
+  if (ac != 1 && !thereisno_file(o))
     print_av(o, s);
   else
     print(o, s);
