@@ -12,11 +12,24 @@
 
 #include "ft_ls.h"
 
+void     display_error(t_l *lav)
+{
+  while (lav)
+  {
+    if (lav->s.st_ino == 1)
+    {
+      ft_printf("ft_ls: ");
+      perror(lav->arg);
+    }
+    lav = lav->next;
+  }
+}
+
 int   close_dir(DIR *dir)
 {
   if (dir && closedir(dir) == -1)
   {
-    perror("Error ");
+    perror("Error");
     return(EXIT_FAILURE);
   }
   return (1);

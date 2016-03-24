@@ -35,6 +35,7 @@ int					find_char(char **av, char c)
 	return (0);
 }
 
+
 t_opt      *get_opt(int ac, char **av)
 {
   t_opt   *o;

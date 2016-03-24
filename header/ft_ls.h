@@ -62,6 +62,7 @@ int                 print_av(t_opt *o, struct stat s);
 int                 print(t_opt *o, struct stat s);
 
 void                display_av(t_pars *p, t_l *lav, t_l *l);
+void                display_error(t_l *lav);
 void                title(t_l *lav, t_pars *p);
 int                 close_dir(DIR *dir);
 int                 is_dir(char *str);
