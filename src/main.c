@@ -66,7 +66,6 @@ int     print_av(t_opt *o, struct stat s)
 
   lav = l_new(o->av[1], s);
   lav = initav_list(lav, o->av, s);
-  display_error(lav);
   merge_sort(&lav);
   while (lav)
   {
@@ -89,11 +88,12 @@ int     main(int ac, char **av)
   struct  stat s;
   t_opt        *o;
 
+  display_error(av);
   o = get_opt(ac, av);
   lstat(av[0], &s);
   if (ac != 1 && !thereisno_file(o))
     print_av(o, s);
-  else
+  else if (!thereisno_file(o))
     print(o, s);
   free(o);
   return (0);

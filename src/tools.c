@@ -12,27 +12,12 @@
 
 #include "ft_ls.h"
 
-void     display_error(t_l *lav)
-{
-  struct stat s;
-
-  while (lav)
-  {
-    if (stat(lav->arg, &s) != 0 && !is_opt(lav->arg))
-    {
-      ft_printf("ft_ls: ");
-      perror(lav->arg);
-    }
-    lav = lav->next;
-  }
-}
-
 int   close_dir(DIR *dir)
 {
   if (dir && closedir(dir) == -1)
   {
     perror("Error");
-    return(EXIT_FAILURE);
+    return (EXIT_FAILURE);
   }
   return (1);
 }
@@ -80,8 +65,11 @@ int     thereisno_file(t_opt *o)
 int     is_opt(char *fmt)
 {
   int  i;
+  struct stat s;
 
   i = 0;
+  if (fmt[0] == '-' && !fmt[1] && stat(fmt, &s) != 0)
+    return (0);
   if (fmt[0] != '-' || !fmt[1])
     return (0);
   while (fmt[i])

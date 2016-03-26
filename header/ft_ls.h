@@ -47,6 +47,7 @@ typedef struct      s_pars
   t_opt             *o;
 }                   t_pars;
 
+void                display_error(char **av);
 t_opt               *get_opt(int ac, char **av);
 int		         			find_char(char **av, char c);
 
@@ -62,7 +63,6 @@ int                 print_av(t_opt *o, struct stat s);
 int                 print(t_opt *o, struct stat s);
 
 void                display_av(t_pars *p, t_l *lav, t_l *l);
-void                display_error(t_l *lav);
 void                title(t_l *lav, t_pars *p);
 int                 close_dir(DIR *dir);
 int                 is_dir(char *str);
