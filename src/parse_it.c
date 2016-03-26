@@ -14,12 +14,15 @@
 
 int					find_char(char **av, char c)
 {
-	int				i;
-  int       j;
+	int					i;
+  int       	j;
+	struct stat s;
 
   j = 1;
   while (av[j])
   {
+		if (stat(av[j], &s) == 0)
+			return (0);
     if (av[j][0] == '-')
     {
       i = 0;
@@ -40,20 +43,24 @@ void     display_error(char **av)
 	t_l					*l;
   struct stat s;
 	int					j;
+	int					w;
 
-	j = 2;
 	if (av[1])
 	{
+		j = 2;
 		lstat(av[1], &s);
 		l = l_new(av[1], s);
 		if (av[j])
 			while (av[j])
 				push_back_list(l, l_new(av[j++], s));
 		merge_sort(&l);
+		w = 0;
 	  while (l)
 	  {
-	    if (stat(l->arg, &s) != 0 && !is_opt(l->arg))
-	    {
+			if (stat(av[1], &s) == 0)
+				w = 1;
+	    if ((is_opt(l->arg) && w == 1) || (stat(l->arg, &s) != 0 && !is_opt(l->arg)))
+		  {
 	      ft_printf("ft_ls: ");
 	      perror(l->arg);
 	    }

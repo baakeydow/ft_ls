@@ -93,7 +93,7 @@ int     main(int ac, char **av)
   lstat(av[0], &s);
   if (ac != 1 && !thereisno_file(o))
     print_av(o, s);
-  else if (!thereisno_file(o))
+  else if (thereisno_file(o) || !no_option(o))
     print(o, s);
   free(o);
   return (0);
