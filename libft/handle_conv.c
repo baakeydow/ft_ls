@@ -6,13 +6,13 @@
 /*   By: bndao <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/21 19:54:26 by bndao             #+#    #+#             */
-/*   Updated: 2016/03/12 18:47:35 by bndao            ###   ########.fr       */
+/*   Updated: 2016/03/27 17:42:14 by bndao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-static int	n_w_s(t_data *t, t_conv *c)
+static int			n_w_s(t_data *t, t_conv *c)
 {
 	if (c->s || c->sm || c->cm || (c->s && t->l) || (c->c && t->l))
 		return (0);

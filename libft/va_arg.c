@@ -6,7 +6,7 @@
 /*   By: bndao <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/08 21:45:13 by bndao             #+#    #+#             */
-/*   Updated: 2016/03/12 18:33:40 by bndao            ###   ########.fr       */
+/*   Updated: 2016/03/27 17:42:51 by bndao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,17 +60,17 @@ uintmax_t				size_uox(va_list conv, t_data *t, t_conv *c)
 	return (nbr);
 }
 
-int				handle_d_maj(va_list conv, t_data *t, t_conv *c)
+int						handle_d_maj(va_list conv, t_data *t, t_conv *c)
 {
 	return (handle_d(conv, t, c));
 }
 
-int				handle_i(va_list conv, t_data *t, t_conv *c)
+int						handle_i(va_list conv, t_data *t, t_conv *c)
 {
 	return (handle_d(conv, t, c));
 }
 
-int				handle_u_maj(va_list conv, t_data *t, t_conv *c)
+int						handle_u_maj(va_list conv, t_data *t, t_conv *c)
 {
 	return (handle_u(conv, t, c));
 }

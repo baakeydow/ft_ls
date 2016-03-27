@@ -6,13 +6,13 @@
 /*   By: bndao <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 23:35:59 by bndao             #+#    #+#             */
-/*   Updated: 2016/03/12 18:33:40 by bndao            ###   ########.fr       */
+/*   Updated: 2016/03/27 17:47:24 by bndao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-static char		*ft_zero_or_min(int number)
+static char			*ft_zero_or_min(int number)
 {
 	char	*str;
 
@@ -23,7 +23,7 @@ static char		*ft_zero_or_min(int number)
 	return (str);
 }
 
-static char		*str_size(char **str, int *not_neg, size_t *i, int *rem)
+static char			*str_size(char **str, int *not_neg, size_t *i, int *rem)
 {
 	*i = 0;
 	*not_neg = 1;
@@ -33,7 +33,7 @@ static char		*str_size(char **str, int *not_neg, size_t *i, int *rem)
 	return (*str);
 }
 
-char			*ft_itoa_base(long long int nbr, int base, char c)
+char				*ft_itoa_base(long long int nbr, int base, char c)
 {
 	int		d[2];
 	size_t	i;

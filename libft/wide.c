@@ -6,7 +6,7 @@
 /*   By: bndao <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/05 16:06:33 by bndao             #+#    #+#             */
-/*   Updated: 2016/03/16 02:07:31 by bndao            ###   ########.fr       */
+/*   Updated: 2016/03/27 17:46:42 by bndao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int					handle_s_maj(va_list conv, t_data *t, t_conv *c)
 
 int					handle_c_maj(va_list conv, t_data *t, t_conv *c)
 {
-	wint_t		ch;
+	wint_t			ch;
 	int				ret;
 	int				len;
 

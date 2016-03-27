@@ -6,13 +6,13 @@
 /*   By: bndao <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 01:00:17 by bndao             #+#    #+#             */
-/*   Updated: 2016/03/14 20:05:32 by bndao            ###   ########.fr       */
+/*   Updated: 2016/03/27 17:43:47 by bndao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-int				get_wide_prec(int prec, wchar_t wide)
+int					get_wide_prec(int prec, wchar_t wide)
 {
 	int			i;
 	int			l;
@@ -43,8 +43,8 @@ int					prec_str_wide(t_data *t, int len, char *str, t_conv *c)
 		return (0);
 	if (!t->prec && !return_char(c->b_t_conv, '.'))
 	{
-			ft_putstr(str);
-			return (ft_strlen(str));
+		ft_putstr(str);
+		return (ft_strlen(str));
 	}
 	if (t->prec > (int)ft_strlen(str))
 	{
