@@ -23,6 +23,7 @@ SRC = $(SRCDIR)main.c \
 		$(SRCDIR)list.c \
 		$(SRCDIR)mergesort.c \
 		$(SRCDIR)parse_it.c \
+		$(SRCDIR)errors.c \
 
 INC = header
 

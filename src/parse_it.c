@@ -38,13 +38,6 @@ int					find_char(char **av, char c)
 	return (0);
 }
 
-int					no_option(t_opt *o)
-{
-	if (!o->l && !o->one && !o->rm && !o->a && !o->r && !o->t)
-		return (1);
-	return (0);
-}
-
 int					is_opt(char *fmt)
 {
 	int			i;
