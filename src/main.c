@@ -37,7 +37,7 @@ int					print(t_opt *o, struct stat s)
 
 void				display_av(t_pars *p, t_l *lav, t_l *l)
 {
-	if (p->o->ac != 2)
+	if (thereis_files(p->o) >= 2)
 		title(lav, p);
 	while (p->l)
 	{
@@ -67,6 +67,8 @@ int					print_av(t_opt *o, struct stat s)
 	lav = l_new(o->av[1], s);
 	lav = initav_list(lav, o->av, s);
 	merge_sort(&lav);
+	if (o->rm)
+		return (direcursive(lav, o));
 	while (lav)
 	{
 		if (stat(lav->arg, &s) == 0)
@@ -91,9 +93,9 @@ int					main(int ac, char **av)
 	display_error(av);
 	o = get_opt(ac, av);
 	lstat(av[0], &s);
-	if (ac != 1 && !thereisno_file(o))
+	if (ac != 1 && thereis_files(o))
 		print_av(o, s);
-	else if ((thereisno_file(o) && !no_option(o)) || ac == 1)
+	else if ((!thereis_files(o) && !no_option(o)) || ac == 1)
 		print(o, s);
 	free(o);
 	return (0);

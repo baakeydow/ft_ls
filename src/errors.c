@@ -75,7 +75,7 @@ void			display_error(char **av)
 	}
 }
 
-int				thereisno_file(t_opt *o)
+int				thereis_files(t_opt *o)
 {
 	int			i;
 	int			cmp;
@@ -90,8 +90,8 @@ int				thereisno_file(t_opt *o)
 		i++;
 	}
 	if (cmp == 0)
-		return (1);
-	return (0);
+		return (0);
+	return (cmp);
 }
 
 int				no_option(t_opt *o)
