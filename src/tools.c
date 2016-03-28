@@ -44,3 +44,39 @@ void			title(t_l *lav, t_opt *o)
 	else if (is_dir(lav->arg) && o->a)
 		ft_printf("%s:\n", lav->arg);
 }
+
+int 			no_dir_in(char **av)
+{
+	int 	i;
+	int 	cmp;
+
+	i = 1;
+	cmp = 0;
+	while (av[i])
+	{
+		if (is_dir(av[i]))
+			cmp++;
+		i++;
+	}
+	if (cmp == 0)
+		return (1);
+	return (0);
+}
+
+int 			just_dir_in(char **av)
+{
+	int 	i;
+	int 	cmp;
+
+	i = 1;
+	cmp = 0;
+	while (av[i])
+	{
+		if (is_dir(av[i]))
+			cmp++;
+		i++;
+	}
+	if (cmp == i - 1)
+		return (1);
+	return (0);
+}

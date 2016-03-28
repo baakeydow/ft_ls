@@ -75,3 +75,78 @@ t_opt				*get_opt(int ac, char **av)
 	o->t = find_char(av, 't');
 	return (o);
 }
+
+t_l					*all_ex_dir(int i, char **av, struct stat s, t_l *start)
+{
+	while (av[i])
+	{
+		if (!is_dir(av[i]))
+			push_back_list(start, l_new(av[i], s));
+		i++;
+	}
+	return (start);
+}
+
+t_l					*get_all_d(int i, char **av, struct stat s, t_l *start)
+{
+	while (av[i])
+	{
+		if (is_dir(av[i]))
+			push_back_list(start, l_new(av[i], s));
+		i++;
+	}
+	return (start);
+}
+
+t_l					*not_by_dir(struct stat s, char **av)
+{
+	int		i;
+	t_l 	*start;
+	t_l		*tmp;
+
+	i = 2;
+	start = l_new(av[1], s);
+	start = all_ex_dir(i, av, s, start);
+	i = 2;
+	while (av[i])
+	{
+		if (is_dir(av[i]))
+			break ;
+		i++;
+	}
+	tmp = l_new(av[i], s);
+	i++;
+	tmp = get_all_d(i, av, s, tmp);
+	merge_sort(&start);
+	merge_sort(&tmp);
+	push_back_list_mod(start, tmp);
+	return (start);
+}
+
+t_l					*by_dir(struct stat s, char **av)
+{
+	int			i;
+	t_l			*start;
+	t_l			*tmp;
+
+	i = 1;
+	while (is_dir(av[i]))
+		i++;
+	start = l_new(av[i], s);
+	i++;
+	start = all_ex_dir(i, av, s, start);
+	i = 1;
+	while (av[i])
+	{
+		if (is_dir(av[i]))
+			break ;
+		i++;
+	}
+	tmp = l_new(av[i], s);
+	i++;
+	tmp = get_all_d(i, av, s, tmp);
+	merge_sort(&start);
+	merge_sort(&tmp);
+	push_back_list_mod(start, tmp);
+	return (start);
+}

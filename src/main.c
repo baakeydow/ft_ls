@@ -48,8 +48,6 @@ void				display_av(t_opt *o, t_l *lav, t_l *l)
 				ft_printf("%s\n", l->arg);
 			l = l->next;
 		}
-		if (lav->next && l)
-			ft_putchar('\n');
 	}
 	else
 	{
@@ -58,6 +56,8 @@ void				display_av(t_opt *o, t_l *lav, t_l *l)
 		if (stat(lav->arg, &(lav->s)) == 0 && lav->next && is_dir(lav->next->arg))
 			ft_putchar('\n');
 	}
+	if (lav->next && is_dir(lav->arg))
+		ft_putchar('\n');
 }
 
 int					print_av(t_opt *o, struct stat s)
