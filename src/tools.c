@@ -26,19 +26,21 @@ int				is_dir(char *str)
 {
 	struct stat s;
 
+	if (!str)
+		return (0);
 	if (lstat(str, &s) == 0)
 		if (s.st_mode & S_IFDIR)
 			return (1);
 	return (0);
 }
 
-void			title(t_l *lav, t_pars *p)
+void			title(t_l *lav, t_opt *o)
 {
-	if (is_dir(lav->arg) && !p->o->a)
+	if (is_dir(lav->arg) && !o->a)
 	{
 		if (lav->arg[0]!= '.')
 			ft_printf("%s:\n", lav->arg);
 	}
-	else if (is_dir(lav->arg) && p->o->a)
+	else if (is_dir(lav->arg) && o->a)
 		ft_printf("%s:\n", lav->arg);
 }

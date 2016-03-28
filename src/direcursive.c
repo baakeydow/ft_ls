@@ -14,24 +14,21 @@
 
 int             direcursive(t_l *lav, t_opt *o)
 {
-    t_pars		*p;
     t_l			*l;
     struct stat s;
+	DIR				*dir = NULL;
 
     if (!lav)
         return (0);
-    while (lav)
+    if (stat(lav->arg, &s) == 0)
     {
-        if (stat(lav->arg, &s) == 0)
-        {
+        display_av(o, lav, l);
+        if (is_dir(lav->arg))
             l = getdir_nodes(lav->arg, s);
-            p = init_data(o, l);
-            display_av(p, lav, l);
-            free(l);
-            free(p);
-        }
-        lav = lav->next;
+        direcursive(l->next, o);
+        free(l);
+        free(p);
     }
-    free(lav);
+    direcursive(lav->next, o);
     return (1);
 }
