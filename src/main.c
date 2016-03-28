@@ -12,54 +12,6 @@
 
 #include "ft_ls.h"
 
-int					print(t_opt *o, char *str)
-{
-	struct stat	s;
-	t_l					*l;
-
-	lstat(str, &s);
-	l = getdir_nodes(str, s);
-	while (l)
-	{
-		if (!o->a)
-		{
-			if (l->arg[0] != '.' && !is_opt(l->arg))
-				ft_printf("%s\n", l->arg);
-		}
-		else if (!is_opt(l->arg))
-			ft_printf("%s\n", l->arg);
-		l = l->next;
-	}
-	free(l);
-	return (1);
-}
-
-void				display_av(t_opt *o, t_l *lav, t_l *l)
-{
-	if (thereis_files(o) >= 2)
-		title(lav, o);
-	if (l)
-	{
-		while (l)
-		{
-			if (o->a)
-				ft_printf("%s\n", l->arg);
-			else if (l->arg[0] != '.')
-				ft_printf("%s\n", l->arg);
-			l = l->next;
-		}
-	}
-	else
-	{
-		if (stat(lav->arg, &(lav->s)) == 0)
-			ft_printf("%s\n", lav->arg);;
-		if (stat(lav->arg, &(lav->s)) == 0 && lav->next && is_dir(lav->next->arg))
-			ft_putchar('\n');
-	}
-	if (lav->next && is_dir(lav->arg))
-		ft_putchar('\n');
-}
-
 int					print_av(t_opt *o, struct stat s)
 {
 	t_l			*lav;
@@ -77,6 +29,23 @@ int					print_av(t_opt *o, struct stat s)
 		lav = lav->next;
 	}
 	free(lav);
+	return (1);
+}
+
+int					print(t_opt *o, char *str)
+{
+	struct stat	s;
+	t_l					*l;
+
+	lstat(str, &s);
+	if (!(l = getdir_nodes(str, s)))
+		return (0);
+	while (l)
+	{
+		print_in(o, l->arg);
+		l = l->next;
+	}
+	free(l);
 	return (1);
 }
 

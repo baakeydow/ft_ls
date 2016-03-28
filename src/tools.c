@@ -12,6 +12,27 @@
 
 #include "ft_ls.h"
 
+int				is_opt(char *fmt)
+{
+	int			i;
+	struct stat s;
+
+	i = 0;
+	if (fmt[0] == '-' && !fmt[1] && stat(fmt, &s) != 0)
+		return (0);
+	if (fmt[0] != '-' || !fmt[1] || fmt[1] == '-')
+		return (0);
+	while (fmt[i])
+	{
+		if (fmt[i] != '-' && fmt[i] != '1' && fmt[i] != 'l' && fmt[i] != 'R' &&
+				fmt[i] != 'a' && fmt[i] != 'r' && fmt[i] != 't' &&
+				fmt[i] != '\0')
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
 int				close_dir(DIR *dir)
 {
 	if (dir && closedir(dir) == -1)
@@ -32,17 +53,6 @@ int				is_dir(char *str)
 		if (s.st_mode & S_IFDIR)
 			return (1);
 	return (0);
-}
-
-void			title(t_l *lav, t_opt *o)
-{
-	if (is_dir(lav->arg) && !o->a)
-	{
-		if (lav->arg[0]!= '.')
-			ft_printf("%s:\n", lav->arg);
-	}
-	else if (is_dir(lav->arg) && o->a)
-		ft_printf("%s:\n", lav->arg);
 }
 
 int 			no_dir_in(char **av)

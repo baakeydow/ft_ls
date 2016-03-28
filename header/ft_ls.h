@@ -63,8 +63,10 @@ int							direcursive(t_l *lav, t_opt *o);
 int							print_av(t_opt *o, struct stat s);
 int							print(t_opt *o, char *str);
 
-void						usage(char *str);
+void						print_in(t_opt *o, char *str);
+void						codekeepin(t_opt *o, t_l *lav);
 void						display_av(t_opt *o, t_l *lav, t_l *l);
+void						usage(char *str);
 void						title(t_l *lav, t_opt *o);
 int							close_dir(DIR *dir);
 int							is_dir(char *str);

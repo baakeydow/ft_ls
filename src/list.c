@@ -12,6 +12,23 @@
 
 #include "ft_ls.h"
 
+t_opt				*get_opt(int ac, char **av)
+{
+	t_opt	*o;
+
+	if (!(o = (t_opt *)malloc(sizeof(t_opt))))
+		return (NULL);
+	o->av = av;
+	o->ac = ac;
+	o->one = find_char(av, '1');
+	o->l = find_char(av, 'l');
+	o->rm = find_char(av, 'R');
+	o->a = find_char(av, 'a');
+	o->r = find_char(av, 'r');
+	o->t = find_char(av, 't');
+	return (o);
+}
+
 t_l	 				*l_new(char *arg, struct stat s)
 {
 	t_l		*node;
@@ -71,23 +88,4 @@ t_l					*getdir_nodes(char *str, struct stat s)
 	merge_sort(&l);
 	close_dir(dir);
 	return (l);
-}
-
-t_l					*initav_list(char **av, struct stat s)
-{
-	int		i;
-	t_l 	*start;
-
-	if (no_dir_in(av) || just_dir_in(av))
-	{
-		i = 2;
-		start = l_new(av[1], s);
-		while (av[i])
-			push_back_list(start, l_new(av[i++], s));
-		merge_sort(&start);
-		return (start);
-	}
-	else if (!is_dir(av[1]))
-		return (not_by_dir(s, av));
-	return (by_dir(s, av));
 }
