@@ -33,6 +33,7 @@ t_l	 				*l_new(char *arg, struct stat s)
 {
 	t_l		*node;
 
+	lstat(arg, &s);
 	if (!(node = (t_l *)malloc(sizeof(t_l))))
 		return (NULL);
 	node->arg = arg;

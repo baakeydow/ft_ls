@@ -18,8 +18,10 @@
 # include <stdio.h>
 # include <errno.h>
 # include <sys/types.h>
+# include <pwd.h>
 # include <sys/dir.h>
 # include <uuid/uuid.h>
+# include <grp.h>
 # include <sys/stat.h>
 
 typedef struct				s_l
@@ -40,6 +42,10 @@ typedef struct				s_opt
 	int						r;
 	int						t;
 }							t_opt;
+
+char						get_type(t_l *l);
+int							get_total(t_l *l, t_opt *o);
+void						print_rights(t_l *l);
 
 void						display_error(char **av);
 t_opt						*get_opt(int ac, char **av);
@@ -63,7 +69,7 @@ int							direcursive(t_l *lav, t_opt *o);
 int							print_av(t_opt *o, struct stat s);
 int							print(t_opt *o, char *str);
 
-void						print_in(t_opt *o, char *str);
+void						print_in(t_opt *o, t_l *l);
 void						codekeepin(t_opt *o, t_l *lav);
 void						display_av(t_opt *o, t_l *lav, t_l *l);
 void						usage(char *str);

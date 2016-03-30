@@ -23,12 +23,19 @@ void	           title(t_l *lav, t_opt *o)
 		ft_printf("%s:\n", lav->arg);
 }
 
-void				print_in(t_opt *o, char *str)
+void				print_in(t_opt *o, t_l *l)
 {
-	if (o->a && !is_opt(str))
-		ft_printf("%s\n", str);
-	else if (str[0] != '.' && !is_opt(str))
-		ft_printf("%s\n", str);
+	if (o->a && !is_opt(l->arg))
+		ft_printf("%s\n", l->arg);
+	else if (l->arg[0] != '.' && !is_opt(l->arg))
+	{
+		print_rights(l);
+		ft_printf("  %d", l->s.st_nlink);
+		ft_printf(" %s", getpwuid(l->s.st_uid)->pw_name);
+		ft_printf("  %s", getgrgid(l->s.st_gid)->gr_name);
+		ft_printf("%7d", l->s.st_size);
+		ft_printf(" %s\n", l->arg);
+	}
 }
 
 void				codekeepin(t_opt *o, t_l *la)
@@ -64,7 +71,7 @@ void				display_av(t_opt *o, t_l *lav, t_l *l)
 	{
 		while (l)
 		{
-			print_in(o, l->arg);
+			print_in(o, l);
 			l = l->next;
 		}
 		free(l);
