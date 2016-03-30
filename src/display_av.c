@@ -12,56 +12,19 @@
 
 #include "ft_ls.h"
 
-void	           title(t_l *lav, t_opt *o)
-{
-	if (is_dir(lav->arg) && !o->a)
-	{
-		if (lav->arg[0]!= '.')
-			ft_printf("%s:\n", lav->arg);
-	}
-	else if (is_dir(lav->arg) && o->a)
-		ft_printf("%s:\n", lav->arg);
-}
-
-void				print_in(t_opt *o, t_l *l)
-{
-	if (!o->l && o->a && !is_opt(l->arg))
-		ft_printf("%s\n", l->arg);
-	else if (!o->l && l->arg[0] != '.' && !is_opt(l->arg))
-		ft_printf("%s\n", l->arg);
-	else if (o->l && l->arg[0] != '.' && !is_opt(l->arg))
-	{
-		print_rights(l);
-		ft_printf("  %d", l->s.st_nlink);
-		ft_printf(" %s", getpwuid(l->s.st_uid)->pw_name);
-		ft_printf("  %s", getgrgid(l->s.st_gid)->gr_name);
-		ft_printf("%7d", l->s.st_size);
-		ft_printf(" %s\n", l->arg);
-	}
-	else if (o->l && o->a && !is_opt(l->arg))
-	{
-		print_rights(l);
-		ft_printf("  %d", l->s.st_nlink);
-		ft_printf(" %s", getpwuid(l->s.st_uid)->pw_name);
-		ft_printf("  %s", getgrgid(l->s.st_gid)->gr_name);
-		ft_printf("%7d", l->s.st_size);
-		ft_printf(" %s\n", l->arg);
-	}
-}
-
 void				codekeepin(t_opt *o, t_l *la)
 {
 	if (o->a)
 	{
 		if (stat(la->arg, &(la->s)) == 0)
-			ft_printf("%s\n", la->arg);;
+			l_option(la, o);
 		if (stat(la->arg, &(la->s)) == 0 && la->next && is_dir(la->next->arg))
 			ft_putchar('\n');
 	}
 	else if (la->arg[0] != '.')
 	{
 		if (stat(la->arg, &(la->s)) == 0)
-			ft_printf("%s\n", la->arg);;
+			l_option(la, o);
 		if (stat(la->arg, &(la->s)) == 0 && la->next && is_dir(la->next->arg))
 			ft_putchar('\n');
 	}
@@ -74,12 +37,26 @@ void				codekeepin(t_opt *o, t_l *la)
 		ft_putchar('\n');
 }
 
+void				print_in(t_opt *o, t_l *l)
+{
+	if (o->a && !is_opt(l->arg))
+		l_option(l, o);
+	else if (l->arg[0] != '.' && !is_opt(l->arg))
+		l_option(l, o);
+	else if (l->arg[0] != '.' && !is_opt(l->arg))
+		l_option(l, o);
+	else if (o->a && !is_opt(l->arg))
+		l_option(l, o);
+}
+
 void				display_av(t_opt *o, t_l *lav, t_l *l)
 {
 	if (thereis_files(o) >= 2)
 		title(lav, o);
 	if (l)
 	{
+		if (o->l)
+			ft_printf("total %d\n", get_total(l, o));
 		while (l)
 		{
 			print_in(o, l);

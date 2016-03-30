@@ -12,46 +12,43 @@
 
 #include "ft_ls.h"
 
-int					find_char(char **av, char c)
+void	           title(t_l *lav, t_opt *o)
 {
-	int				i;
-	int				j;
-	struct stat		s;
-
-	j = 1;
-	while (av[j])
+	if (is_dir(lav->arg) && !o->a)
 	{
-		if (stat(av[j], &s) == 0)
-			return (0);
-		if (av[j][0] == '-')
-		{
-			i = 0;
-			while (av[j][i])
-			{
-				if (av[j][i] == c && is_opt(av[j]))
-					return (1);
-				i++;
-			}
-		}
-		j++;
+		if (lav->arg[0]!= '.')
+			ft_printf("%s:\n", lav->arg);
 	}
-	return (0);
+	else if (is_dir(lav->arg) && o->a)
+		ft_printf("%s:\n", lav->arg);
 }
 
-int					get_total(t_l *l, t_opt *o)
+void				time_it(t_l *l)
 {
-	int		size;
+	char	*t;
+	char	**tab;
+	int		i;
 
-	size = 0;
-	while (l)
+	i = 0;
+	t = ctime(&l->s.st_mtime);
+	tab = ft_strsplit(t, ' ');
+	while (tab[i])
+		ft_putstr(tab[i++]);
+}
+
+void				l_option(t_l *l, t_opt *o)
+{
+	if (o->l)
 	{
-		if (o->a)
-			size += l->s.st_blocks;
-		else if (l->arg[0] != '.')
-			size += l->s.st_blocks;
-		l = l->next;
+		print_rights(l);
+		ft_printf("  %d", l->s.st_nlink);
+		ft_printf(" %s", getpwuid(l->s.st_uid)->pw_name);
+		ft_printf("  %s", getgrgid(l->s.st_gid)->gr_name);
+		ft_printf("%7d", l->s.st_size);
+		ft_printf(" %s\n", l->arg);
 	}
-	return (size);
+	else
+		ft_printf("%s\n", l->arg);
 }
 
 char				get_type(t_l *l)
@@ -82,4 +79,46 @@ void				print_rights(t_l *l)
 	ft_putchar(c = (l->s.st_mode & S_IROTH ? 'r' : '-'));
 	ft_putchar(c = (l->s.st_mode & S_IWOTH ? 'w' : '-'));
 	ft_putchar(c = (l->s.st_mode & S_IXOTH ? 'x' : '-'));
+}
+
+int					get_total(t_l *l, t_opt *o)
+{
+	int		size;
+
+	size = 0;
+	while (l)
+	{
+		if (o->a)
+			size += l->s.st_blocks;
+		else if (l->arg[0] != '.')
+			size += l->s.st_blocks;
+		l = l->next;
+	}
+	return (size);
+}
+
+int					find_char(char **av, char c)
+{
+	int				i;
+	int				j;
+	struct stat		s;
+
+	j = 1;
+	while (av[j])
+	{
+		if (stat(av[j], &s) == 0)
+			return (0);
+		if (av[j][0] == '-')
+		{
+			i = 0;
+			while (av[j][i])
+			{
+				if (av[j][i] == c && is_opt(av[j]))
+					return (1);
+				i++;
+			}
+		}
+		j++;
+	}
+	return (0);
 }

@@ -20,12 +20,24 @@ int					print_av(t_opt *o, struct stat s)
 	lav = initav_list(o->av, s);
 	while (lav)
 	{
+		ft_putendl(lav->arg);
+		lav = lav->next;
+	}
+	while (lav)
+	{
 		if (stat(lav->arg, &s) == 0)
 		{
 			l = getdir_nodes(lav->arg, s);
 			display_av(o, lav, l);
 			free(l);
 		}
+		if (o->a)
+		{
+			if (lav->next && is_dir(lav->arg))
+				ft_putchar('\n');
+		}
+		else if (lav->next && is_dir(lav->arg) && lav->arg[0] != '.')
+			ft_putchar('\n');
 		lav = lav->next;
 	}
 	free(lav);
@@ -40,6 +52,7 @@ int					print(t_opt *o, char *str)
 	lstat(str, &s);
 	if (!(l = getdir_nodes(str, s)))
 		return (0);
+	// time_it(l);
 	if (o->l)
 		ft_printf("total %d\n", get_total(l, o));
 	while (l)

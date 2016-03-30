@@ -23,6 +23,7 @@
 # include <uuid/uuid.h>
 # include <grp.h>
 # include <sys/stat.h>
+# include <time.h>
 
 typedef struct				s_l
 {
@@ -43,9 +44,12 @@ typedef struct				s_opt
 	int						t;
 }							t_opt;
 
+char						**just_valid(t_opt *o);
 char						get_type(t_l *l);
 int							get_total(t_l *l, t_opt *o);
 void						print_rights(t_l *l);
+void						time_it(t_l *l);
+void						l_option(t_l *l, t_opt *o);
 
 void						display_error(char **av);
 t_opt						*get_opt(int ac, char **av);
