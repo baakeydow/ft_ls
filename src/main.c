@@ -40,7 +40,8 @@ int					print(t_opt *o, char *str)
 	lstat(str, &s);
 	if (!(l = getdir_nodes(str, s)))
 		return (0);
-	ft_printf("total %d\n", get_total(l, o));
+	if (o->l)
+		ft_printf("total %d\n", get_total(l, o));
 	while (l)
 	{
 		print_in(o, l);
