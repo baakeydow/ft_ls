@@ -55,6 +55,24 @@ int				is_dir(char *str)
 	return (0);
 }
 
+char	*get_path(char *dir, char *file)
+{
+	size_t	len1;
+	size_t	len2;
+	char	*name;
+
+	if (ft_strcmp(dir, "./") == 0)
+		return (file);
+	len1 = ft_strlen(dir);
+	len2 = ft_strlen(file);
+	if (!(name = ft_strnew((len1 + len2) + 1)))
+		return (NULL);
+	ft_memcpy(name, dir, len1);
+	name[len1] = '/';
+	ft_memcpy((name + len1) + 1, file, len2);
+	return (name);
+}
+
 int 			no_dir_in(char **av)
 {
 	int 	i;
@@ -89,4 +107,22 @@ int 			just_dir_in(char **av)
 	if (cmp == i - 1)
 		return (1);
 	return (0);
+}
+
+char		*ft_strrchr_mod(const char *s, int c)
+{
+	size_t	i;
+	char	*ptr;
+
+	i = 0;
+	ptr = (char *)s;
+	if (c == 0)
+		return ((char *)s + ft_strlen((char *)s));
+	while (s[i])
+	{
+		if (s[i] == (char)c)
+			ptr = ((char *)s + i + 1);
+		i++;
+	}
+	return (ptr);
 }

@@ -36,7 +36,7 @@ t_l	 				*l_new(char *arg, struct stat s)
 	lstat(arg, &s);
 	if (!(node = (t_l *)malloc(sizeof(t_l))))
 		return (NULL);
-	node->arg = arg;
+	node->arg = ft_strrchr_mod(arg, '/');
 	node->s = s;
 	node->next = NULL;
 	return (node);
@@ -83,9 +83,9 @@ t_l					*getdir_nodes(char *str, struct stat s)
 	if (!(dir = opendir(str)))
 		return (NULL);
 	f = readdir(dir);
-	l = l_new(f->d_name, s);
+	l = l_new(get_path(str, f->d_name), s);
 	while ((file = readdir(dir)))
-		push_back_list(l, l_new(file->d_name, s));
+		push_back_list(l, l_new(get_path(str, file->d_name), s));
 	merge_sort(&l);
 	close_dir(dir);
 	return (l);

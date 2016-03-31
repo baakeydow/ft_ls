@@ -44,7 +44,7 @@ void				l_option(t_l *l, t_opt *o)
 		ft_printf("  %d", l->s.st_nlink);
 		ft_printf(" %s", getpwuid(l->s.st_uid)->pw_name);
 		ft_printf("  %s", getgrgid(l->s.st_gid)->gr_name);
-		ft_printf("%7d", l->s.st_size);
+		ft_printf("  %5d", l->s.st_size);
 		time_it(l);
 		ft_printf(" %s\n", l->arg);
 	}

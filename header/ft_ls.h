@@ -44,6 +44,8 @@ typedef struct				s_opt
 	int						t;
 }							t_opt;
 
+char						*ft_strrchr_mod(const char *s, int c);
+char						*get_path(char *dir, char *file);
 char						get_type(t_l *l);
 int							get_total(t_l *l, t_opt *o);
 void						print_rights(t_l *l);
