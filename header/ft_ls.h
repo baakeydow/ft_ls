@@ -53,23 +53,23 @@ void						print_rights(t_l *l);
 void						time_it(t_l *l);
 void						l_option(t_l *l, t_opt *o);
 
-void						display_error(char **av);
+void						display_error(char **av, t_opt *o);
 t_opt						*get_opt(int ac, char **av);
 int							find_char(char **av, char c);
 
 t_l							*l_new(char *arg, char *path, struct stat s);
 void						push_back_list(t_l *b_list, t_l *list);
 void						push_back_list_mod(t_l *b_list, t_l *list);
-void						merge_sort(t_l **source);
-t_l							*getdir_nodes(char *str, struct stat s);
+void						merge_sort(t_l **source, t_opt *o);
+t_l							*getdir_nodes(char *str, struct stat s, t_opt *o);
 
 int							no_dir_in(char **av);
 int							just_dir_in(char **av);
 t_l							*get_all_d(int i, char **a, struct stat l, t_l *s);
 t_l							*all_ex_dir(int i, char **v, struct stat l, t_l *s);
-t_l							*not_by_dir(struct stat s, char **av);
-t_l							*by_dir(struct stat s, char **av);
-t_l							*initav_list(char **av, struct stat s);
+t_l							*not_by_dir(struct stat s, char **av, t_opt *o);
+t_l							*by_dir(struct stat s, char **av, t_opt *o);
+t_l							*initav_list(char **av, struct stat s, t_opt *o);
 
 int							direcursive(t_l *lav, t_opt *o);
 int							print_av(t_opt *o, struct stat s);

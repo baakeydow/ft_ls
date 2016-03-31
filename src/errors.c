@@ -56,7 +56,7 @@ static void		look_for_it(char **av, t_l *l, struct stat s)
 	free(l);
 }
 
-void			display_error(char **av)
+void			display_error(char **av, t_opt *o)
 {
 	t_l			*l;
 	struct stat	s;
@@ -70,7 +70,7 @@ void			display_error(char **av)
 		if (av[j])
 			while (av[j])
 				push_back_list(l, l_new(av[j++], NULL, s));
-		merge_sort(&l);
+		merge_sort(&l, o);
 		look_for_it(av, l, s);
 	}
 }

@@ -41,7 +41,7 @@ void				part(t_l *head, t_l **front, t_l **back)
 	}
 }
 
-t_l				*merge_lists(t_l *a, t_l *b)
+t_l				*merge_lists(t_l *a, t_l *b, t_opt *o)
 {
 	t_l *merge_it;
 
@@ -50,20 +50,20 @@ t_l				*merge_lists(t_l *a, t_l *b)
 		return (b);
 	else if (!b)
 		return (a);
-	if (ft_strcmp(a->arg, b->arg) < 0)
+	if (o->r ? ft_strcmp(a->arg, b->arg) > 0 : ft_strcmp(a->arg, b->arg) < 0)
 	{
 		merge_it = a;
-		merge_it->next = merge_lists(a->next, b);
+		merge_it->next = merge_lists(a->next, b, o);
 	}
 	else
 	{
 		merge_it = b;
-		merge_it->next = merge_lists(a, b->next);
+		merge_it->next = merge_lists(a, b->next, o);
 	}
 	return (merge_it);
 }
 
-void			merge_sort(t_l **source)
+void			merge_sort(t_l **source, t_opt *o)
 {
 	t_l		*head;
 	t_l		*a;
@@ -75,7 +75,7 @@ void			merge_sort(t_l **source)
 	if (!head || !head->next)
 		return ;
 	part(head, &a, &b);
-	merge_sort(&a);
-	merge_sort(&b);
-	*source = merge_lists(a, b);
+	merge_sort(&a, o);
+	merge_sort(&b, o);
+	*source = merge_lists(a, b, o);
 }

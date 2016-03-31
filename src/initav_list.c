@@ -12,7 +12,7 @@
 
 #include "ft_ls.h"
 
-t_l					*initav_list(char **av, struct stat s)
+t_l					*initav_list(char **av, struct stat s, t_opt *o)
 {
 	int		i;
 	t_l 	*start;
@@ -23,12 +23,12 @@ t_l					*initav_list(char **av, struct stat s)
 		start = l_new(av[1], NULL, s);
 		while (av[i])
 			push_back_list(start, l_new(av[i++], NULL, s));
-		merge_sort(&start);
+		merge_sort(&start, o);
 		return (start);
 	}
 	else if (!is_dir(av[1]))
-		return (not_by_dir(s, av));
-	return (by_dir(s, av));
+		return (not_by_dir(s, av, o));
+	return (by_dir(s, av, o));
 }
 
 t_l					*all_ex_dir(int i, char **av, struct stat s, t_l *start)
@@ -53,7 +53,7 @@ t_l					*get_all_d(int i, char **av, struct stat s, t_l *start)
 	return (start);
 }
 
-t_l					*not_by_dir(struct stat s, char **av)
+t_l					*not_by_dir(struct stat s, char **av, t_opt *o)
 {
 	int		i;
 	t_l 	*start;
@@ -78,13 +78,13 @@ t_l					*not_by_dir(struct stat s, char **av)
 	tmp = l_new(av[i], NULL, s);
 	i++;
 	tmp = get_all_d(i, av, s, tmp);
-	merge_sort(&start);
-	merge_sort(&tmp);
+	merge_sort(&start, o);
+	merge_sort(&tmp, o);
 	push_back_list_mod(start, tmp);
 	return (start);
 }
 
-t_l					*by_dir(struct stat s, char **av)
+t_l					*by_dir(struct stat s, char **av, t_opt *o)
 {
 	int			i;
 	t_l			*start;
@@ -106,8 +106,8 @@ t_l					*by_dir(struct stat s, char **av)
 	tmp = l_new(av[i], NULL, s);
 	i++;
 	tmp = get_all_d(i, av, s, tmp);
-	merge_sort(&start);
-	merge_sort(&tmp);
+	merge_sort(&start, o);
+	merge_sort(&tmp, o);
 	push_back_list_mod(start, tmp);
 	return (start);
 }

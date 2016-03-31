@@ -17,12 +17,12 @@ int					print_av(t_opt *o, struct stat s)
 	t_l			*lav;
 	t_l			*l;
 
-	lav = initav_list(o->av, s);
+	lav = initav_list(o->av, s, o);
 	while (lav)
 	{
 		if (stat(lav->arg, &s) == 0)
 		{
-			l = getdir_nodes(lav->arg, s);
+			l = getdir_nodes(lav->arg, s, o);
 			display_av(o, lav, l);
 			free(l);
 		}
@@ -45,7 +45,7 @@ int					print(t_opt *o, char *str)
 	t_l					*l;
 
 	lstat(str, &s);
-	if (!(l = getdir_nodes(str, s)))
+	if (!(l = getdir_nodes(str, s, o)))
 		return (0);
 	if (o->l)
 		ft_printf("total %d\n", get_total(l, o));
@@ -63,8 +63,8 @@ int					main(int ac, char **av)
 	struct stat		s;
 	t_opt			*o;
 
-	display_error(av);
 	o = get_opt(ac, av);
+	display_error(av, o);
 	lstat(av[0], &s);
 	if (ac != 1 && thereis_files(o))
 		print_av(o, s);

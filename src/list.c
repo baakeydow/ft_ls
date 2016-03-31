@@ -74,7 +74,7 @@ void				push_back_list_mod(t_l *b_list, t_l *new)
 	}
 }
 
-t_l					*getdir_nodes(char *str, struct stat s)
+t_l					*getdir_nodes(char *str, struct stat s, t_opt *o)
 {
 	struct dirent	*f = NULL;
 	struct dirent	*file = NULL;
@@ -87,7 +87,7 @@ t_l					*getdir_nodes(char *str, struct stat s)
 	l = l_new(f->d_name, str, s);
 	while ((file = readdir(dir)))
 		push_back_list(l, l_new(file->d_name, str, s));
-	merge_sort(&l);
+	merge_sort(&l, o);
 	close_dir(dir);
 	return (l);
 }
