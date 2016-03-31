@@ -28,6 +28,7 @@
 typedef struct				s_l
 {
 	char					*arg;
+	char					*path;
 	struct stat				s;
 	struct s_l				*next;
 }							t_l;
@@ -56,7 +57,7 @@ void						display_error(char **av);
 t_opt						*get_opt(int ac, char **av);
 int							find_char(char **av, char c);
 
-t_l							*l_new(char *arg, struct stat s);
+t_l							*l_new(char *arg, char *path, struct stat s);
 void						push_back_list(t_l *b_list, t_l *list);
 void						push_back_list_mod(t_l *b_list, t_l *list);
 void						merge_sort(t_l **source);

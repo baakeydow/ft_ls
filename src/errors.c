@@ -66,10 +66,10 @@ void			display_error(char **av)
 	{
 		j = 2;
 		lstat(av[1], &s);
-		l = l_new(av[1], s);
+		l = l_new(av[1], NULL, s);
 		if (av[j])
 			while (av[j])
-				push_back_list(l, l_new(av[j++], s));
+				push_back_list(l, l_new(av[j++], NULL, s));
 		merge_sort(&l);
 		look_for_it(av, l, s);
 	}

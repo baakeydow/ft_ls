@@ -61,7 +61,7 @@ char	*get_path(char *dir, char *file)
 	size_t	len2;
 	char	*name;
 
-	if (ft_strcmp(dir, "./") == 0)
+	if (!dir || ft_strcmp(dir, "./") == 0)
 		return (file);
 	len1 = ft_strlen(dir);
 	len2 = ft_strlen(file);
@@ -121,7 +121,7 @@ char		*ft_strrchr_mod(const char *s, int c)
 	while (s[i])
 	{
 		if (s[i] == (char)c)
-			ptr = ((char *)s + i + 1);
+			ptr = ((char *)s + i);
 		i++;
 	}
 	return (ptr);
