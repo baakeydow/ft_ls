@@ -12,27 +12,6 @@
 
 #include "ft_ls.h"
 
-char			**just_valid(t_opt *o)
-{
-	struct stat s;
-	int			i;
-	int			j;
-	char		**tab;
-
-	i = 1;
-	j = 0;
-	if (!(tab = (char **)malloc(sizeof(char *) * o->ac)))
-		return (NULL);
-	while (o->av[i])
-	{
-		if (stat(o->av[i], &s) == 0)
-			tab[j++] = ft_strdup(o->av[i]);
-		i++;
-	}
-	tab[j] = NULL;
-	return (tab);
-}
-
 int				is_opt(char *fmt)
 {
 	int			i;

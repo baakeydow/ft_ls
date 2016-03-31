@@ -20,11 +20,6 @@ int					print_av(t_opt *o, struct stat s)
 	lav = initav_list(o->av, s);
 	while (lav)
 	{
-		ft_putendl(lav->arg);
-		lav = lav->next;
-	}
-	while (lav)
-	{
 		if (stat(lav->arg, &s) == 0)
 		{
 			l = getdir_nodes(lav->arg, s);

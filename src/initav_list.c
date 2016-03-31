@@ -35,7 +35,7 @@ t_l					*all_ex_dir(int i, char **av, struct stat s, t_l *start)
 {
 	while (av[i])
 	{
-		if (!is_dir(av[i]) && stat(av[i], &s) != 0)
+		if (!is_dir(av[i]) && stat(av[i], &s) == 0)
 			push_back_list(start, l_new(av[i], s));
 		i++;
 	}
@@ -59,9 +59,15 @@ t_l					*not_by_dir(struct stat s, char **av)
 	t_l 	*start;
 	t_l		*tmp;
 
-	i = 2;
-	start = l_new(av[1], s);
-	start = all_ex_dir(i, av, s, start);
+	i = 1;
+	while (av[i])
+	{
+		if (!is_dir(av[i]) && stat(av[i], &s) == 0)
+			break ;
+		i++;
+	}
+	start = l_new(av[i], s);
+	start = all_ex_dir(++i, av, s, start);
 	i = 2;
 	while (av[i])
 	{
