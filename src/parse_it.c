@@ -26,14 +26,14 @@ void	           title(t_l *lav, t_opt *o)
 void				time_it(t_l *l)
 {
 	char	*t;
-	char	**tab;
+	char	**b;
 	int		i;
 
 	i = 0;
 	t = ctime(&l->s.st_mtime);
-	tab = ft_strsplit(t, ' ');
-	while (tab[i])
-		ft_putstr(tab[i++]);
+	b = ft_strsplit(t, ' ');
+	ft_printf(" %s %s ", b[1], b[2]);
+	ft_printf("%c%c%c%c%c", b[3][0], b[3][1], b[3][2], b[3][3], b[3][4]);
 }
 
 void				l_option(t_l *l, t_opt *o)
@@ -45,6 +45,7 @@ void				l_option(t_l *l, t_opt *o)
 		ft_printf(" %s", getpwuid(l->s.st_uid)->pw_name);
 		ft_printf("  %s", getgrgid(l->s.st_gid)->gr_name);
 		ft_printf("%7d", l->s.st_size);
+		time_it(l);
 		ft_printf(" %s\n", l->arg);
 	}
 	else
