@@ -12,7 +12,7 @@
 
 #include "ft_ls.h"
 
-void	           title(t_l *lav, t_opt *o)
+void				title(t_l *lav, t_opt *o)
 {
 	if (is_dir(lav->arg) && !o->a)
 	{
@@ -36,6 +36,25 @@ void				time_it(t_l *l)
 	ft_printf("%c%c%c%c%c", b[3][0], b[3][1], b[3][2], b[3][3], b[3][4]);
 }
 
+static void			get_link(t_l *l)
+{
+	int		t;
+	char	*buffer;
+
+	buffer = ft_strnew(1024);
+	t = 0;
+	if (is_link(l->path))
+	{
+		if ((t = readlink(l->path, buffer, 1024)) && t > 0)
+			ft_printf(" %s -> %s\n", l->arg, buffer);
+		else
+			ft_printf(" %s\n", l->arg);
+	}
+	else
+		ft_printf(" %s\n", l->arg);
+	free(buffer);
+}
+
 void				l_option(t_l *l, t_opt *o)
 {
 	if (o->l)
@@ -46,7 +65,7 @@ void				l_option(t_l *l, t_opt *o)
 		ft_printf("  %s", getgrgid(l->s.st_gid)->gr_name);
 		ft_printf("  %5d", l->s.st_size);
 		time_it(l);
-		ft_printf(" %s\n", l->arg);
+		get_link(l);
 	}
 	else
 		ft_printf("%s\n", l->arg);

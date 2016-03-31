@@ -55,6 +55,18 @@ int				is_dir(char *str)
 	return (0);
 }
 
+int				is_link(char *str)
+{
+	struct stat s;
+
+	if (!str)
+		return (0);
+	if (lstat(str, &s) == 0)
+		if (s.st_mode & S_IFLNK)
+			return (1);
+	return (0);
+}
+
 char	*get_path(char *dir, char *file)
 {
 	size_t	len1;
@@ -107,22 +119,4 @@ int 			just_dir_in(char **av)
 	if (cmp == i - 1)
 		return (1);
 	return (0);
-}
-
-char		*ft_strrchr_mod(const char *s, int c)
-{
-	size_t	i;
-	char	*ptr;
-
-	i = 0;
-	ptr = (char *)s;
-	if (c == 0)
-		return ((char *)s + ft_strlen((char *)s));
-	while (s[i])
-	{
-		if (s[i] == (char)c)
-			ptr = ((char *)s + i);
-		i++;
-	}
-	return (ptr);
 }

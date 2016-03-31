@@ -45,7 +45,7 @@ typedef struct				s_opt
 	int						t;
 }							t_opt;
 
-char						*ft_strrchr_mod(const char *s, int c);
+
 char						*get_path(char *dir, char *file);
 char						get_type(t_l *l);
 int							get_total(t_l *l, t_opt *o);
@@ -82,6 +82,7 @@ void						usage(char *str);
 void						title(t_l *lav, t_opt *o);
 int							close_dir(DIR *dir);
 int							is_dir(char *str);
+int							is_link(char *str);
 int							is_opt(char *fmt);
 int							no_option(t_opt *o);
 int							thereis_files(t_opt *o);
