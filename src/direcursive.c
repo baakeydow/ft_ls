@@ -14,6 +14,10 @@
 
 void  		   just_print(t_l *l, t_opt *o)
 {
+    if (!l)
+        return ;
+    if (o->rm && l->path[0] != '.')
+        ft_printf("\n%s:\n", l->path);
     if (o->l)
         ft_printf("total %d\n", get_total(l, o));
     while (l)
@@ -26,13 +30,23 @@ void  		   just_print(t_l *l, t_opt *o)
 
 int             direcursive(t_l *l, t_opt *o)
 {
+    t_l     *n;
+
+    n = NULL;
     if (!l || !l->path)
         return (0);
-    if (is_dir(l->path) && l->arg[0] != '.')
+    just_print(l, o);
+    while (l)
     {
-        ft_printf("\n%s:\n", l->path);
-        just_print(getdir_nodes(l->arg, l->s, o), o);
+        if (is_dir(l->path) && l->arg[0] != '.')
+        {
+            n = getdir_nodes(l->path, l->s, o);
+            direcursive(n->next, o);
+        }
+        l = l->next;
     }
-    direcursive(l->next, o);
+    free(l);
+    if (n)
+        free(n);
     return (1);
 }

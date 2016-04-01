@@ -47,9 +47,9 @@ int					print(t_opt *o, char *str)
 	lstat(str, &s);
 	if (!(l = getdir_nodes(str, s, o)))
 		return (0);
-	just_print(l, o);
 	if (o->rm)
 		return (direcursive(l, o));
+	just_print(l, o);
 	free(l);
 	return (1);
 }

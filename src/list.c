@@ -29,20 +29,6 @@ t_opt				*get_opt(int ac, char **av)
 	return (o);
 }
 
-t_l	 				*l_new(char *arg, char *dir, struct stat s)
-{
-	t_l		*node;
-
-	lstat(get_path(dir, arg), &s);
-	if (!(node = (t_l *)malloc(sizeof(t_l))))
-		return (NULL);
-	node->arg = arg;
-	node->path = get_path(dir, arg);
-	node->s = s;
-	node->next = NULL;
-	return (node);
-}
-
 void				push_back_list(t_l *b_list, t_l *new)
 {
 	t_l		*tmp;
@@ -72,6 +58,20 @@ void				push_back_list_mod(t_l *b_list, t_l *new)
 			tmp = tmp->next;
 		tmp->next = new;
 	}
+}
+
+t_l	 				*l_new(char *arg, char *dir, struct stat s)
+{
+	t_l		*node;
+
+	lstat(get_path(dir, arg), &s);
+	if (!(node = (t_l *)malloc(sizeof(t_l))))
+		return (NULL);
+	node->arg = arg;
+	node->path = get_path(dir, arg);
+	node->s = s;
+	node->next = NULL;
+	return (node);
 }
 
 t_l					*getdir_nodes(char *str, struct stat s, t_opt *o)
