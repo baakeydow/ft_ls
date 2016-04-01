@@ -12,21 +12,26 @@
 
 #include "ft_ls.h"
 
-int             direcursive(t_l *lav, t_opt *o)
+void  		   just_print(t_l *l, t_opt *o)
 {
-    t_l			*l;
-    struct stat s;
-
-    if (!lav)
-        return (0);
-    if (stat(lav->arg, &s) == 0)
+    if (o->l)
+        ft_printf("total %d\n", get_total(l, o));
+    while (l)
     {
-        print(o, lav->arg);
-        if (is_dir(lav->arg))
-        {
-            l = getdir_nodes(lav->arg, s);
-            free(l);
-        }
+        print_in(o, l);
+        l = l->next;
+    }
+    free(l);
+}
+
+int             direcursive(t_l *l, t_opt *o)
+{
+    if (!l || !l->path)
+        return (0);
+    if (is_dir(l->path) && l->arg[0] != '.')
+    {
+        ft_printf("\n%s:\n", l->path);
+        just_print(getdir_nodes(l->arg, l->s, o), o);
     }
     direcursive(l->next, o);
     return (1);

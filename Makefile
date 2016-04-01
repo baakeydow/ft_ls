@@ -26,7 +26,7 @@ SRC = $(SRCDIR)main.c \
 		$(SRCDIR)errors.c \
 		$(SRCDIR)display_av.c \
 		$(SRCDIR)initav_list.c \
-#		$(SRCDIR)direcursive.c \
+		$(SRCDIR)direcursive.c \
 
 INC = header
 

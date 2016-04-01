@@ -71,9 +71,10 @@ t_l							*not_by_dir(struct stat s, char **av, t_opt *o);
 t_l							*by_dir(struct stat s, char **av, t_opt *o);
 t_l							*initav_list(char **av, struct stat s, t_opt *o);
 
-int							direcursive(t_l *lav, t_opt *o);
+int							direcursive(t_l *l, t_opt *o);
 int							print_av(t_opt *o, struct stat s);
 int							print(t_opt *o, char *str);
+void						just_print(t_l *l, t_opt *o);
 
 void						print_in(t_opt *o, t_l *l);
 void						codekeepin(t_opt *o, t_l *lav);

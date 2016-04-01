@@ -12,6 +12,17 @@
 
 #include "ft_ls.h"
 
+void				title(t_l *lav, t_opt *o)
+{
+	if (is_dir(lav->arg) && !o->a)
+	{
+		if (lav->arg[0]!= '.')
+			ft_printf("%s:\n", lav->arg);
+	}
+	else if (is_dir(lav->arg) && o->a)
+		ft_printf("%s:\n", lav->arg);
+}
+
 int				is_opt(char *fmt)
 {
 	int			i;
