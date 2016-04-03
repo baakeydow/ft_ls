@@ -25,8 +25,8 @@ int					print_av(t_l *lav, t_opt *o)
 			{
 				if (thereis_files(o) >= 2)
 						title(lav, o);
-				l = getdir_nodes(lav->path, o);
-				just_print(l, o);
+					l = getdir_nodes(lav->path, o);
+					just_print(l, o);
 			}
 			else
 				print_file(lav, o);
@@ -60,11 +60,6 @@ int							print_all_right(t_opt *o)
 	if (o->ac != 1 && thereis_files(o))
 	{
 		l = initav_list(o->av, o);
-		while (l)
-		{
-			ft_putendl(l->arg);
-			l = l->next;
-		}
 		if (o->rm)
 			return (direcursive(l, o));
 		print_av(l, o);

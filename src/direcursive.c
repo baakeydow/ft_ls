@@ -35,6 +35,7 @@ int             direcursive(t_l *l, t_opt *o)
     {
         if (is_dir(l->path) && isnot_points(l->arg))
         {
+            ft_putchar('\n');
             title(l, o);
             n = getdir_nodes(l->path, o);
             direcursive(n->next, o);

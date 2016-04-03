@@ -18,7 +18,7 @@ char				*get_path(char *dir, char *file)
 	size_t	len2;
 	char	*name;
 
-	if (!dir || (!ft_strcmp(dir, "./") && !ft_strcmp(dir, ".")))
+	if (!dir || (!ft_strcmp(dir, "./") || !ft_strcmp(dir, ".")))
 		return (file);
 	len1 = ft_strlen(dir);
 	len2 = ft_strlen(file);
