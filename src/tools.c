@@ -12,15 +12,33 @@
 
 #include "ft_ls.h"
 
+char				*get_path(char *dir, char *file)
+{
+	size_t	len1;
+	size_t	len2;
+	char	*name;
+
+	if (!dir || (!ft_strcmp(dir, "./") && !ft_strcmp(dir, ".")))
+		return (file);
+	len1 = ft_strlen(dir);
+	len2 = ft_strlen(file);
+	if (!(name = ft_strnew((len1 + len2) + 1)))
+		return (NULL);
+	ft_memcpy(name, dir, len1);
+	name[len1] = '/';
+	ft_memcpy((name + len1) + 1, file, len2);
+	return (name);
+}
+
 void				title(t_l *lav, t_opt *o)
 {
-	if (is_dir(lav->arg) && !o->a)
+	if (is_dir(lav->path) && !o->a)
 	{
-		if (lav->arg[0]!= '.')
-			ft_printf("%s:\n", lav->arg);
+		if (lav->arg[0] != '.')
+			ft_printf("%s:\n", lav->path);
 	}
-	else if (is_dir(lav->arg) && o->a)
-		ft_printf("%s:\n", lav->arg);
+	else if (is_dir(lav->path) && o->a)
+		ft_printf("%s:\n", lav->path);
 }
 
 int				is_opt(char *fmt)
@@ -42,6 +60,17 @@ int				is_opt(char *fmt)
 		i++;
 	}
 	return (1);
+}
+
+void				print_space(t_l *l, t_opt *o)
+{
+	if (o->a)
+	{
+		if (l->next && is_dir(l->path))
+			ft_putchar('\n');
+	}
+	else if (l->next && is_dir(l->path) && l->arg[0] != '.')
+		ft_putchar('\n');
 }
 
 int				close_dir(DIR *dir)
@@ -76,24 +105,6 @@ int				is_link(char *str)
 		if (s.st_mode & S_IFLNK)
 			return (1);
 	return (0);
-}
-
-char	*get_path(char *dir, char *file)
-{
-	size_t	len1;
-	size_t	len2;
-	char	*name;
-
-	if (!dir || ft_strcmp(dir, "./") == 0)
-		return (file);
-	len1 = ft_strlen(dir);
-	len2 = ft_strlen(file);
-	if (!(name = ft_strnew((len1 + len2) + 1)))
-		return (NULL);
-	ft_memcpy(name, dir, len1);
-	name[len1] = '/';
-	ft_memcpy((name + len1) + 1, file, len2);
-	return (name);
 }
 
 int 			no_dir_in(char **av)

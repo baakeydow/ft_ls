@@ -40,29 +40,14 @@ void				push_back_list(t_l *b_list, t_l *new)
 		tmp = b_list;
 		while (tmp->next)
 			tmp = tmp->next;
-		new->next = NULL;
 		tmp->next = new;
 	}
 }
 
-void				push_back_list_mod(t_l *b_list, t_l *new)
-{
-	t_l		*tmp;
-
-	if (b_list == NULL)
-		b_list = new;
-	else
-	{
-		tmp = b_list;
-		while (tmp->next)
-			tmp = tmp->next;
-		tmp->next = new;
-	}
-}
-
-t_l	 				*l_new(char *arg, char *dir, struct stat s)
+t_l	 				*l_new(char *dir, char *arg)
 {
 	t_l		*node;
+	struct stat	s;
 
 	lstat(get_path(dir, arg), &s);
 	if (!(node = (t_l *)malloc(sizeof(t_l))))
@@ -74,7 +59,7 @@ t_l	 				*l_new(char *arg, char *dir, struct stat s)
 	return (node);
 }
 
-t_l					*getdir_nodes(char *str, struct stat s, t_opt *o)
+t_l					*getdir_nodes(char *str, t_opt *o)
 {
 	struct dirent	*f = NULL;
 	struct dirent	*file = NULL;
@@ -84,9 +69,9 @@ t_l					*getdir_nodes(char *str, struct stat s, t_opt *o)
 	if (!(dir = opendir(str)))
 		return (NULL);
 	f = readdir(dir);
-	l = l_new(f->d_name, str, s);
+	l = l_new(str, ft_strdup(f->d_name));
 	while ((file = readdir(dir)))
-		push_back_list(l, l_new(file->d_name, str, s));
+		push_back_list(l, l_new(str, ft_strdup(file->d_name)));
 	merge_sort(&l, o);
 	close_dir(dir);
 	return (l);

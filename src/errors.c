@@ -31,9 +31,10 @@ void			usage(char *str)
 	}
 }
 
-static void		look_for_it(char **av, t_l *l, struct stat s)
+static void		look_for_it(char **av, t_l *l)
 {
 	int			w;
+	struct stat s;
 
 	w = 0;
 	while (l)
@@ -59,19 +60,17 @@ static void		look_for_it(char **av, t_l *l, struct stat s)
 void			display_error(char **av, t_opt *o)
 {
 	t_l			*l;
-	struct stat	s;
 	int			j;
 
 	if (av[1])
 	{
 		j = 2;
-		lstat(av[1], &s);
-		l = l_new(av[1], NULL, s);
+		l = l_new(NULL, av[1]);
 		if (av[j])
 			while (av[j])
-				push_back_list(l, l_new(av[j++], NULL, s));
+				push_back_list(l, l_new(NULL, av[j++]));
 		merge_sort(&l, o);
-		look_for_it(av, l, s);
+		look_for_it(av, l);
 	}
 }
 
@@ -83,6 +82,8 @@ int				thereis_files(t_opt *o)
 
 	i = 1;
 	cmp = 0;
+	if (o->ac == 1)
+		return (0);
 	while (o->av[i])
 	{
 		if (stat(o->av[i], &s) == 0)

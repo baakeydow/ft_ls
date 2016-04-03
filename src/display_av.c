@@ -12,58 +12,34 @@
 
 #include "ft_ls.h"
 
-void				codekeepin(t_opt *o, t_l *la)
+void				print_file(t_l *la, t_opt *o)
 {
 	if (o->a)
 	{
-		if (stat(la->arg, &(la->s)) == 0)
+		if (stat(la->path, &(la->s)) == 0)
 			l_option(la, o);
-		if (stat(la->arg, &(la->s)) == 0 && la->next && is_dir(la->next->arg))
+		if (stat(la->path, &(la->s)) == 0 && la->next && is_dir(la->next->path))
 			ft_putchar('\n');
 	}
 	else if (la->arg[0] != '.')
 	{
-		if (stat(la->arg, &(la->s)) == 0)
+		if (stat(la->path, &(la->s)) == 0)
 			l_option(la, o);
-		if (stat(la->arg, &(la->s)) == 0 && la->next && is_dir(la->next->arg))
+		if (stat(la->path, &(la->s)) == 0 && la->next && is_dir(la->next->path))
 			ft_putchar('\n');
 	}
-	if (o->a)
-	{
-		if (la->next && is_dir(la->arg))
-			ft_putchar('\n');
-	}
-	else if (la->next && is_dir(la->arg) && la->arg[0] != '.')
-		ft_putchar('\n');
 }
 
-void				print_in(t_opt *o, t_l *l)
+void				print_in(t_l *l, t_opt *o)
 {
-	if (o->a && !is_opt(l->arg))
-		l_option(l, o);
-	else if (l->arg[0] != '.' && !is_opt(l->arg))
-		l_option(l, o);
-	else if (l->arg[0] != '.' && !is_opt(l->arg))
-		l_option(l, o);
-	else if (o->a && !is_opt(l->arg))
-		l_option(l, o);
-}
+	struct stat s;
 
-void				display_av(t_opt *o, t_l *lav, t_l *l)
-{
-	if (thereis_files(o) >= 2)
-		title(lav, o);
-	if (l)
-	{
-		if (o->l)
-			ft_printf("total %d\n", get_total(l, o));
-		while (l)
-		{
-			print_in(o, l);
-			l = l->next;
-		}
-		free(l);
-	}
-	else
-		codekeepin(o, lav);
+	if ((stat(l->path, &s) == 0) && o->a && !is_opt(l->path))
+		l_option(l, o);
+	else if ((stat(l->path, &s) == 0) && l->arg[0] != '.' && !is_opt(l->path))
+		l_option(l, o);
+	else if ((stat(l->path, &s) == 0) && l->arg[0] != '.' && !is_opt(l->path))
+		l_option(l, o);
+	else if ((stat(l->path, &s) == 0) && o->a && !is_opt(l->path))
+		l_option(l, o);
 }

@@ -12,60 +12,80 @@
 
 #include "ft_ls.h"
 
-int					print_av(t_opt *o, struct stat s)
+int					print_av(t_l *lav, t_opt *o)
 {
-	t_l			*lav;
+	struct stat s;
 	t_l			*l;
 
-	lav = initav_list(o->av, s, o);
 	while (lav)
 	{
-		if (stat(lav->arg, &s) == 0)
+		if (stat(lav->path, &s) == 0)
 		{
-			l = getdir_nodes(lav->arg, s, o);
-			display_av(o, lav, l);
-			free(l);
+			if (is_dir(lav->path))
+			{
+				if (thereis_files(o) >= 2)
+						title(lav, o);
+				l = getdir_nodes(lav->path, o);
+				just_print(l, o);
+			}
+			else
+				print_file(lav, o);
+			print_space(lav, o);
 		}
-		if (o->a)
-		{
-			if (lav->next && is_dir(lav->arg))
-				ft_putchar('\n');
-		}
-		else if (lav->next && is_dir(lav->arg) && lav->arg[0] != '.')
-			ft_putchar('\n');
 		lav = lav->next;
 	}
-	free(lav);
 	return (1);
 }
 
-int					print(t_opt *o, char *str)
+void  		   just_print(t_l *l, t_opt *o)
 {
-	struct stat	s;
+    if (!l)
+        return ;
+		if (thereis_files(o) >= 2)
+				title(l, o);
+    if (o->l)
+        ft_printf("total %d\n", get_total(l, o));
+    while (l)
+    {
+        print_in(l, o);
+        l = l->next;
+    }
+}
+
+int							print_all_right(t_opt *o)
+{
 	t_l					*l;
 
-	lstat(str, &s);
-	if (!(l = getdir_nodes(str, s, o)))
-		return (0);
-	if (o->rm)
-		return (direcursive(l, o));
-	just_print(l, o);
-	free(l);
+	l = NULL;
+	if (o->ac != 1 && thereis_files(o))
+	{
+		l = initav_list(o->av, o);
+		while (l)
+		{
+			ft_putendl(l->arg);
+			l = l->next;
+		}
+		if (o->rm)
+			return (direcursive(l, o));
+		print_av(l, o);
+	}
+	else if ((!thereis_files(o) && !no_option(o)) || o->ac == 1)
+	{
+		l = getdir_nodes(".", o);
+		if (o->rm)
+			return (direcursive(l, o));
+		just_print(l, o);
+	}
 	return (1);
 }
 
 int					main(int ac, char **av)
 {
-	struct stat		s;
 	t_opt			*o;
 
 	o = get_opt(ac, av);
 	display_error(av, o);
-	lstat(av[0], &s);
-	if (ac != 1 && thereis_files(o))
-		print_av(o, s);
-	else if ((!thereis_files(o) && !no_option(o)) || ac == 1)
-		print(o, "./");
+	print_all_right(o);
 	free(o);
 	return (0);
 }

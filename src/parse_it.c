@@ -94,6 +94,8 @@ int					get_total(t_l *l, t_opt *o)
 {
 	int		size;
 
+	if (!l->arg)
+		return (0);
 	size = 0;
 	while (l)
 	{
