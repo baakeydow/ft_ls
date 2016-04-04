@@ -15,9 +15,10 @@
 int					get_padding_size(t_l *l)
 {
 	int		len;
+	struct stat s;
 
 	len = 0;
-	if (!l || (stat(l->path, &l->s) != 0))
+	if (!l || (stat(l->path, &s) != 0))
 		return (0);
 	while (l)
 	{
@@ -31,9 +32,10 @@ int					get_padding_size(t_l *l)
 int					get_padding_links(t_l *l)
 {
 	int		len;
+	struct stat s;
 
 	len = 0;
-	if (!l || (stat(l->path, &l->s) != 0))
+	if (!l || (stat(l->path, &s) != 0))
 		return (0);
 	while (l)
 	{
@@ -47,9 +49,10 @@ int					get_padding_links(t_l *l)
 int					get_padding_grp(t_l *l)
 {
 	int		len;
+	struct stat s;
 
 	len = 0;
-	if (!l || (stat(l->path, &l->s) != 0))
+	if (!l || (stat(l->path, &s) != 0))
 		return (0);
 	while (l)
 	{
@@ -63,14 +66,16 @@ int					get_padding_grp(t_l *l)
 int					get_padding_name(t_l *l)
 {
 	int		len;
+	struct stat s;
 
 	len = 0;
-	if (!l || (stat(l->path, &l->s) != 0))
+	if (!l || (stat(l->path, &s) != 0))
 		return (0);
 	while (l)
 	{
-		if ((ft_strlen(getpwuid(l->s.st_uid)->pw_name)) >= (size_t)len)
-			len = ft_strlen(getpwuid(l->s.st_uid)->pw_name);
+		stat(l->path, &s);
+		if ((ft_strlen(getpwuid(s.st_uid)->pw_name)) >= (size_t)len)
+			len = ft_strlen(getpwuid(s.st_uid)->pw_name);
 		l = l->next;
 	}
 	return (len);
