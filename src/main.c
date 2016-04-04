@@ -63,8 +63,6 @@ int							print_all_right(t_opt *o)
 	if (o->ac != 1 && thereis_files(o))
 	{
 		l = initav_list(o->av, o);
-		// if (o->rm)
-			// return (direcursive(l, o));
 		print_av(l, o);
 	}
 	else if ((!thereis_files(o) && !no_option(o)) || o->ac == 1)

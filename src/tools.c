@@ -157,8 +157,13 @@ char				*get_path(char *dir, char *file)
 	if (!(name = ft_strnew((len1 + len2) + 1)))
 		return (NULL);
 	ft_memcpy(name, dir, len1);
-	name[len1] = '/';
-	ft_memcpy((name + len1) + 1, file, len2);
+	if (ft_strcmp(dir, "/"))
+	{
+		name[len1] = '/';
+		ft_memcpy((name + len1) + 1, file, len2);
+	}
+	else
+		ft_memcpy((name + len1), file, len2);
 	return (name);
 }
 
