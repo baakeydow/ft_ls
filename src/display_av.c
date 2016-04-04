@@ -48,10 +48,7 @@ void				l_option(t_l *l, t_opt *o, int *tab)
 		print_links(tab[0], l);
 		print_name(tab[1], l);
 		print_grpname(tab[2], l);
-		// ft_printf("  %3d", l->s.st_nlink);
-		// ft_printf(" %s", getpwuid(l->s.st_uid)->pw_name);
-		// ft_printf("  %s", getgrgid(l->s.st_gid)->gr_name);
-		ft_printf("  %5d", l->s.st_size);
+		print_size(tab[3], l);
 		time_it(l);
 		get_link(l);
 	}

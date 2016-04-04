@@ -45,6 +45,8 @@ typedef struct				s_opt
 	int						t;
 }							t_opt;
 
+int							get_padding_size(t_l *l);
+void						print_size(int len, t_l *l);
 int							get_padding_links(t_l *l);
 void						print_links(int len, t_l *l);
 int							get_padding_name(t_l *l);

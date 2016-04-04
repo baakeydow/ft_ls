@@ -25,7 +25,10 @@ int					print_av(t_l *lav, t_opt *o)
 			{
 				if (thereis_files(o) >= 2)
 						title(lav, o);
-					l = getdir_nodes(lav->path, o);
+				l = getdir_nodes(lav->path, o);
+				if (o->rm)
+					direcursive(l, o);
+				else
 					just_print(l, o, get_tab_spaces(l));
 			}
 			else
@@ -43,7 +46,7 @@ void  		   just_print(t_l *l, t_opt *o, int *tab)
         return ;
 		if (thereis_files(o) >= 2)
 				title(l, o);
-    if (o->l)
+    if (o->l && get_total(l, o) != 0)
         ft_printf("total %d\n", get_total(l, o));
     while (l)
     {
@@ -60,8 +63,8 @@ int							print_all_right(t_opt *o)
 	if (o->ac != 1 && thereis_files(o))
 	{
 		l = initav_list(o->av, o);
-		if (o->rm)
-			return (direcursive(l, o));
+		// if (o->rm)
+			// return (direcursive(l, o));
 		print_av(l, o);
 	}
 	else if ((!thereis_files(o) && !no_option(o)) || o->ac == 1)

@@ -12,6 +12,22 @@
 
 #include "ft_ls.h"
 
+int					get_padding_size(t_l *l)
+{
+	int		len;
+
+	len = 0;
+	if ((stat(l->path, &l->s) != 0))
+		return (0);
+	while (l)
+	{
+		if ((ft_strlen(ft_itoa(l->s.st_size)) >= (size_t)len))
+			len = ft_strlen(ft_itoa(l->s.st_size));
+		l = l->next;
+	}
+	return (len);
+}
+
 int					get_padding_links(t_l *l)
 {
 	int		len;
@@ -65,6 +81,8 @@ void				print_grpname(int len, t_l *l)
 	int		i;
 
 	i = 0;
+	if ((stat(l->path, &l->s) != 0))
+		return ;
 	if ((size_t)len > ft_strlen(getgrgid(l->s.st_gid)->gr_name))
 		i = len - ft_strlen(getgrgid(l->s.st_gid)->gr_name);
 	ft_printf("  %s", getgrgid(l->s.st_gid)->gr_name);
@@ -77,6 +95,8 @@ void				print_name(int len, t_l *l)
 	int		i;
 
 	i = 0;
+	if ((stat(l->path, &l->s) != 0))
+		return ;
 	if ((size_t)len > ft_strlen(getpwuid(l->s.st_uid)->pw_name))
 		i = len - ft_strlen(getpwuid(l->s.st_uid)->pw_name);
 	ft_printf(" %s", getpwuid(l->s.st_uid)->pw_name);
@@ -89,11 +109,27 @@ void				print_links(int len, t_l *l)
 	int		i;
 
 	i = 0;
+	if ((stat(l->path, &l->s) != 0))
+		return ;
 	if ((size_t)len > ft_strlen(ft_itoa(l->s.st_nlink)))
 		i = len - ft_strlen(ft_itoa(l->s.st_nlink));
 	while (i--)
 		ft_putchar(' ');
 	ft_printf("  %s", ft_itoa(l->s.st_nlink));
+}
+
+void				print_size(int len, t_l *l)
+{
+	int		i;
+
+	i = 0;
+	if ((stat(l->path, &l->s) != 0))
+		return ;
+	if ((size_t)len > ft_strlen(ft_itoa(l->s.st_size)))
+		i = len - ft_strlen(ft_itoa(l->s.st_size));
+	while (i--)
+		ft_putchar(' ');
+	ft_printf("  %s", ft_itoa(l->s.st_size));
 }
 
 int					*get_tab_spaces(t_l *l)
@@ -104,6 +140,7 @@ int					*get_tab_spaces(t_l *l)
 	tab[0] = get_padding_links(l);
 	tab[1] = get_padding_name(l);
 	tab[2] = get_padding_grp(l);
+	tab[3] = get_padding_size(l);
 	return (tab);
 }
 
