@@ -21,11 +21,11 @@ void				time_it(t_l *l)
 	i = 0;
 	t = ctime(&l->s.st_mtime);
 	b = ft_strsplit(t, ' ');
-	ft_printf(" %s %s ", b[1], b[2]);
+	ft_printf(" %s %2d ", b[1], ft_atoi(b[2]));
 	ft_printf("%c%c%c%c%c", b[3][0], b[3][1], b[3][2], b[3][3], b[3][4]);
 }
 
-static void			get_link(t_l *l)
+void				get_link(t_l *l)
 {
 	int		t;
 	char	*buffer;
@@ -42,22 +42,6 @@ static void			get_link(t_l *l)
 	else
 		ft_printf(" %s\n", l->arg);
 	free(buffer);
-}
-
-void				l_option(t_l *l, t_opt *o)
-{
-	if (o->l)
-	{
-		print_rights(l);
-		ft_printf("  %d", l->s.st_nlink);
-		ft_printf(" %s", getpwuid(l->s.st_uid)->pw_name);
-		ft_printf("  %s", getgrgid(l->s.st_gid)->gr_name);
-		ft_printf("  %5d", l->s.st_size);
-		time_it(l);
-		get_link(l);
-	}
-	else
-		ft_printf("%s\n", l->arg);
 }
 
 char				get_type(t_l *l)

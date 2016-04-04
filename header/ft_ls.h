@@ -45,13 +45,21 @@ typedef struct				s_opt
 	int						t;
 }							t_opt;
 
+int							get_padding_links(t_l *l);
+void						print_links(int len, t_l *l);
+int							get_padding_name(t_l *l);
+void						print_name(int len, t_l *l);
+int							get_padding_grp(t_l *l);
+void						print_grpname(int len, t_l *l);
+int							*get_tab_spaces(t_l *l);
 
 char						*get_path(char *dir, char *file);
 char						get_type(t_l *l);
+void						get_link(t_l *l);
 int							get_total(t_l *l, t_opt *o);
 void						print_rights(t_l *l);
 void						time_it(t_l *l);
-void						l_option(t_l *l, t_opt *o);
+void						l_option(t_l *l, t_opt *o, int *tab);
 
 void						display_error(char **av, t_opt *o);
 t_opt						*get_opt(int ac, char **av);
@@ -72,9 +80,9 @@ int							just_dir_in(char **av);
 int							direcursive(t_l *l, t_opt *o);
 int							print_all_right(t_opt *o);
 int							print_av(t_l *l, t_opt *o);
-void						just_print(t_l *l, t_opt *o);
-void						print_in(t_l *l, t_opt *o);
-void						print_file(t_l *lav, t_opt *o);
+void						just_print(t_l *l, t_opt *o, int *tab);
+void						print_file(t_l *lav, t_opt *o, int *tab);
+void						print_in(t_l *l, t_opt *o, int *tab);
 void						print_space(t_l *l, t_opt *o);
 
 int							find_char(char **av, char c);

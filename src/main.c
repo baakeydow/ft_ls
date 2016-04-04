@@ -26,10 +26,10 @@ int					print_av(t_l *lav, t_opt *o)
 				if (thereis_files(o) >= 2)
 						title(lav, o);
 					l = getdir_nodes(lav->path, o);
-					just_print(l, o);
+					just_print(l, o, get_tab_spaces(l));
 			}
 			else
-				print_file(lav, o);
+				print_file(lav, o, get_tab_spaces(l));
 			print_space(lav, o);
 		}
 		lav = lav->next;
@@ -37,7 +37,7 @@ int					print_av(t_l *lav, t_opt *o)
 	return (1);
 }
 
-void  		   just_print(t_l *l, t_opt *o)
+void  		   just_print(t_l *l, t_opt *o, int *tab)
 {
     if (!l)
         return ;
@@ -47,7 +47,7 @@ void  		   just_print(t_l *l, t_opt *o)
         ft_printf("total %d\n", get_total(l, o));
     while (l)
     {
-        print_in(l, o);
+        print_in(l, o, tab);
         l = l->next;
     }
 }
@@ -69,7 +69,7 @@ int							print_all_right(t_opt *o)
 		l = getdir_nodes(".", o);
 		if (o->rm)
 			return (direcursive(l, o));
-		just_print(l, o);
+		just_print(l, o, get_tab_spaces(l));
 	}
 	return (1);
 }
