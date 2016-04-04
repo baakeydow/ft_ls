@@ -63,7 +63,7 @@ void						print_rights(t_l *l);
 void						time_it(t_l *l);
 void						l_option(t_l *l, t_opt *o, int *tab);
 
-void						display_error(char **av, t_opt *o);
+int							display_error(char **av, t_opt *o);
 t_opt						*get_opt(int ac, char **av);
 
 t_l							*l_new(char *arg, char *path);

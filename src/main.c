@@ -80,8 +80,8 @@ int					main(int ac, char **av)
 	t_opt			*o;
 
 	o = get_opt(ac, av);
-	display_error(av, o);
-	print_all_right(o);
+	if (!display_error(av, o))
+		print_all_right(o);
 	free(o);
 	return (0);
 }

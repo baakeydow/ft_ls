@@ -31,12 +31,14 @@ void			usage(char *str)
 	}
 }
 
-static void		look_for_it(char **av, t_l *l)
+static int			look_for_it(char **av, t_l *l)
 {
 	int			w;
+	int			c;
 	struct stat s;
 
 	w = 0;
+	c = 0;
 	while (l)
 	{
 		if (stat(av[1], &s) == 0 || !is_opt(av[1]))
@@ -51,13 +53,15 @@ static void		look_for_it(char **av, t_l *l)
 				ft_printf("ft_ls: ");
 				perror(l->arg);
 			}
+			c = 1;
 		}
 		l = l->next;
 	}
 	free(l);
+	return (c);
 }
 
-void			display_error(char **av, t_opt *o)
+int				display_error(char **av, t_opt *o)
 {
 	t_l			*l;
 	int			j;
@@ -70,8 +74,9 @@ void			display_error(char **av, t_opt *o)
 			while (av[j])
 				push_back_list(l, l_new(NULL, av[j++]));
 		merge_sort(&l, o);
-		look_for_it(av, l);
+		return (look_for_it(av, l));
 	}
+	return (0);
 }
 
 int				thereis_files(t_opt *o)

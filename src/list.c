@@ -67,7 +67,10 @@ t_l					*getdir_nodes(char *str, t_opt *o)
 	t_l				*l;
 
 	if (!(dir = opendir(str)))
+	{
+		perror(str);
 		return (NULL);
+	}
 	f = readdir(dir);
 	l = l_new(str, ft_strdup(f->d_name));
 	while ((file = readdir(dir)))

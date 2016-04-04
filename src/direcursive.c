@@ -38,7 +38,8 @@ int             direcursive(t_l *l, t_opt *o)
             ft_putchar('\n');
             title(l, o);
             n = getdir_nodes(l->path, o);
-            direcursive(n->next, o);
+            if (n)
+                direcursive(n->next, o);
         }
         l = l->next;
     }

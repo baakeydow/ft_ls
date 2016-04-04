@@ -41,12 +41,31 @@ void				part(t_l *head, t_l **front, t_l **back)
 	}
 }
 
-static int datecmp (long long int a, long long int b)
+// static int datecmp (long long int a, long long int b)
+// {
+// 	if (a <= b)
+// 		return (1);
+// 	else if (a > b)
+// 		return (-1);
+// 	return (0);
+// }
+
+static int		datecmp(t_l *a, t_l *b)
 {
-	if (a <= b)
+	if (a->s.st_mtime > b->s.st_mtime)
+		return (0);
+	if (a->s.st_mtime < b->s.st_mtime)
 		return (1);
-	else if (a > b)
-		return (-1);
+	if (a->s.st_mtimespec.tv_nsec != 0 &&
+		b->s.st_mtimespec.tv_nsec != 0)
+	{
+		if (a->s.st_mtimespec.tv_nsec > b->s.st_mtimespec.tv_nsec)
+			return (0);
+		if (a->s.st_mtimespec.tv_nsec < b->s.st_mtimespec.tv_nsec)
+			return (1);
+	}
+	if (ft_strcmp(a->arg, b->arg) <= 0)
+		return (0);
 	return (0);
 }
 
@@ -54,7 +73,7 @@ static int decide_sort(t_l *a, t_l *b, t_opt *o)
 {
 	if (o->t)
 	{
-		return (datecmp(a->s.st_mtime, b->s.st_mtime));
+		return (datecmp(a, b));
 	}
 	else
 		return (ft_strcmp(a->arg, b->arg));
