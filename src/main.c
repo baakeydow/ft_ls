@@ -32,7 +32,7 @@ int					print_av(t_l *lav, t_opt *o)
 					just_print(l, o, get_tab_spaces(l));
 			}
 			else
-				print_file(lav, o, get_tab_spaces(l));
+				print_file(lav, o, get_tab_spaces(lav));
 			print_space(lav, o);
 		}
 		lav = lav->next;

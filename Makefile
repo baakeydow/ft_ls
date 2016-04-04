@@ -15,6 +15,7 @@ NAME = ft_ls
 FLAGS = -Wall
 FLAGS += -Werror
 FLAGS += -Wextra
+FLAGS += -g
 
 SRCDIR = src/
 

@@ -25,7 +25,7 @@ int             isnot_points(char *str)
 
 int             direcursive(t_l *l, t_opt *o)
 {
-    t_l     *n;
+    t_l         *n;
 
     n = NULL;
     if (!l)

@@ -17,7 +17,7 @@ int					get_padding_size(t_l *l)
 	int		len;
 
 	len = 0;
-	if ((stat(l->path, &l->s) != 0))
+	if (!l || (stat(l->path, &l->s) != 0))
 		return (0);
 	while (l)
 	{
@@ -33,7 +33,7 @@ int					get_padding_links(t_l *l)
 	int		len;
 
 	len = 0;
-	if ((stat(l->path, &l->s) != 0))
+	if (!l || (stat(l->path, &l->s) != 0))
 		return (0);
 	while (l)
 	{
@@ -49,7 +49,7 @@ int					get_padding_grp(t_l *l)
 	int		len;
 
 	len = 0;
-	if ((stat(l->path, &l->s) != 0))
+	if (!l || (stat(l->path, &l->s) != 0))
 		return (0);
 	while (l)
 	{
@@ -65,7 +65,7 @@ int					get_padding_name(t_l *l)
 	int		len;
 
 	len = 0;
-	if ((stat(l->path, &l->s) != 0))
+	if (!l || (stat(l->path, &l->s) != 0))
 		return (0);
 	while (l)
 	{
@@ -76,12 +76,24 @@ int					get_padding_name(t_l *l)
 	return (len);
 }
 
+int					*get_tab_spaces(t_l *l)
+{
+	int 	*tab;
+
+	tab = (int *)malloc(sizeof(int) * 4);
+	tab[0] = get_padding_links(l);
+	tab[1] = get_padding_name(l);
+	tab[2] = get_padding_grp(l);
+	tab[3] = get_padding_size(l);
+	return (tab);
+}
+
 void				print_grpname(int len, t_l *l)
 {
 	int		i;
 
 	i = 0;
-	if ((stat(l->path, &l->s) != 0))
+	if (!l || (stat(l->path, &l->s) != 0))
 		return ;
 	if ((size_t)len > ft_strlen(getgrgid(l->s.st_gid)->gr_name))
 		i = len - ft_strlen(getgrgid(l->s.st_gid)->gr_name);
@@ -95,7 +107,7 @@ void				print_name(int len, t_l *l)
 	int		i;
 
 	i = 0;
-	if ((stat(l->path, &l->s) != 0))
+	if (!l || (stat(l->path, &l->s) != 0))
 		return ;
 	if ((size_t)len > ft_strlen(getpwuid(l->s.st_uid)->pw_name))
 		i = len - ft_strlen(getpwuid(l->s.st_uid)->pw_name);
@@ -109,7 +121,7 @@ void				print_links(int len, t_l *l)
 	int		i;
 
 	i = 0;
-	if ((stat(l->path, &l->s) != 0))
+	if (!l || (stat(l->path, &l->s) != 0))
 		return ;
 	if ((size_t)len > ft_strlen(ft_itoa(l->s.st_nlink)))
 		i = len - ft_strlen(ft_itoa(l->s.st_nlink));
@@ -123,25 +135,13 @@ void				print_size(int len, t_l *l)
 	int		i;
 
 	i = 0;
-	if ((stat(l->path, &l->s) != 0))
+	if (!l || (stat(l->path, &l->s) != 0))
 		return ;
 	if ((size_t)len > ft_strlen(ft_itoa(l->s.st_size)))
 		i = len - ft_strlen(ft_itoa(l->s.st_size));
 	while (i--)
 		ft_putchar(' ');
 	ft_printf("  %s", ft_itoa(l->s.st_size));
-}
-
-int					*get_tab_spaces(t_l *l)
-{
-	int 	*tab;
-
-	tab = (int *)malloc(sizeof(int) * 3);
-	tab[0] = get_padding_links(l);
-	tab[1] = get_padding_name(l);
-	tab[2] = get_padding_grp(l);
-	tab[3] = get_padding_size(l);
-	return (tab);
 }
 
 char				*get_path(char *dir, char *file)
@@ -169,7 +169,7 @@ char				*get_path(char *dir, char *file)
 
 void				title(t_l *lav, t_opt *o)
 {
-	if (is_dir(lav->path) && !o->a)
+	if (lav && is_dir(lav->path) && !o->a)
 	{
 		if (lav->arg[0] != '.')
 			ft_printf("%s:\n", lav->path);
@@ -184,6 +184,8 @@ int				is_opt(char *fmt)
 	struct stat s;
 
 	i = 0;
+	if (!fmt)
+		return (0);
 	if (fmt[0] == '-' && !fmt[1] && stat(fmt, &s) != 0)
 		return (0);
 	if (fmt[0] != '-' || !fmt[1] || fmt[1] == '-')
@@ -201,12 +203,12 @@ int				is_opt(char *fmt)
 
 void				print_space(t_l *l, t_opt *o)
 {
-	if (o->a)
+	if (l && o->a)
 	{
 		if (l->next && is_dir(l->path))
 			ft_putchar('\n');
 	}
-	else if (l->next && is_dir(l->path) && l->arg[0] != '.')
+	else if (l && l->next && is_dir(l->path) && l->arg[0] != '.')
 		ft_putchar('\n');
 }
 

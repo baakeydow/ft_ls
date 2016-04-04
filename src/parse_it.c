@@ -19,6 +19,8 @@ void				time_it(t_l *l)
 	int		i;
 
 	i = 0;
+	if (!l)
+		return ;
 	t = ctime(&l->s.st_mtime);
 	b = ft_strsplit(t, ' ');
 	ft_printf(" %s %2d ", b[1], ft_atoi(b[2]));
@@ -62,6 +64,8 @@ void				print_rights(t_l *l)
 {
 	char	c;
 
+	if (!l)
+		return ;
 	ft_putchar(get_type(l));
 	ft_putchar(c = (l->s.st_mode & S_IRUSR ? 'r' : '-'));
 	ft_putchar(c = (l->s.st_mode & S_IWUSR ? 'w' : '-'));
