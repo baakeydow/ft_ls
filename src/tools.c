@@ -167,10 +167,12 @@ void				print_name(int len, t_l *l)
 void				print_links(int len, t_l *l)
 {
 	int		i;
+	struct stat s;
 
 	i = 0;
-	if (!l || (stat(l->path, &l->s) != 0))
+	if (!l || (stat(l->path, &s) != 0))
 		return ;
+	l->s = s;
 	if ((size_t)len > ft_strlen(ft_itoa(l->s.st_nlink)))
 		i = len - ft_strlen(ft_itoa(l->s.st_nlink));
 	while (i--)
@@ -181,10 +183,12 @@ void				print_links(int len, t_l *l)
 void				print_size(int len, t_l *l)
 {
 	int		i;
+	struct stat s;
 
 	i = 0;
-	if (!l || (stat(l->path, &l->s) != 0))
+	if (!l || (stat(l->path, &s) != 0))
 		return ;
+	l->s = s;
 	if ((size_t)len > ft_strlen(ft_itoa(l->s.st_size)))
 		i = len - ft_strlen(ft_itoa(l->s.st_size));
 	while (i--)
@@ -208,7 +212,7 @@ char				*get_path(char *dir, char *file)
 	if (!(name = ft_strnew((len1 + len2) + 1)))
 		return (NULL);
 	ft_memcpy(name, dir, len1);
-	if (ft_strcmp(dir, "/"))
+	if (ft_strcmp(dir, "/") && dir[ft_strlen(dir) - 1] != '/')
 	{
 		name[len1] = '/';
 		ft_memcpy((name + len1) + 1, file, len2);
@@ -279,7 +283,7 @@ int				is_dir(char *str)
 
 	if (!str)
 		return (0);
-	if (lstat(str, &s) == 0)
+	if (stat(str, &s) == 0)
 		if (s.st_mode & S_IFDIR)
 			return (1);
 	return (0);
