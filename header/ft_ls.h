@@ -37,6 +37,7 @@ typedef struct				s_opt
 {
 	char					**av;
 	int						ac;
+	time_t					time_c;
 	int						one;
 	int						l;
 	int						rm;
@@ -45,31 +46,32 @@ typedef struct				s_opt
 	int						t;
 }							t_opt;
 
-int							get_padding_size(t_l *l);
-void						print_size(int len, t_l *l);
-int							get_padding_links(t_l *l);
-void						print_links(int len, t_l *l);
-int							get_padding_name(t_l *l);
-void						print_name(int len, t_l *l);
-int							get_padding_grp(t_l *l);
-void						print_grpname(int len, t_l *l);
-int							*get_tab_spaces(t_l *l);
-
-char						*get_path(char *dir, char *file);
-char						get_type(t_l *l);
-void						get_link(t_l *l);
-int							get_total(t_l *l, t_opt *o);
-void						print_rights(t_l *l);
-void						time_it(t_l *l);
-void						l_option(t_l *l, t_opt *o, int *tab);
-
-int							display_error(char **av, t_opt *o);
 t_opt						*get_opt(int ac, char **av);
+int							display_error(char **av, t_opt *o);
+int							print_all_right(t_opt *o);
 
 t_l							*l_new(char *arg, char *path);
+char						*get_path(char *dir, char *file);
 t_l							*getdir_nodes(char *str, t_opt *o);
 void						push_back_list(t_l *b_list, t_l *list);
 void						merge_sort(t_l **source, t_opt *o);
+
+int							get_padding_size(t_l *l);
+int							get_padding_links(t_l *l);
+int							get_padding_name(t_l *l);
+int							get_padding_grp(t_l *l);
+int							*get_tab_spaces(t_l *l);
+char						get_type(t_l *l);
+void						print_rights(t_l *l);
+void						print_size(int len, t_l *l);
+void						print_links(int len, t_l *l);
+void						print_name(int len, t_l *l);
+void						print_grpname(int len, t_l *l);
+void						time_it(t_l *l, t_opt *o);
+
+void						get_link(t_l *l);
+int							get_total(t_l *l, t_opt *o);
+void						l_option(t_l *l, t_opt *o, int *tab);
 
 t_l							*initav_list(char **av, t_opt *o);
 t_l							*get_all_d(int i, char **a, t_l *s);
@@ -80,22 +82,22 @@ int							no_dir_in(char **av);
 int							just_dir_in(char **av);
 
 int							direcursive(t_l *l, t_opt *o);
-int							print_all_right(t_opt *o);
-int							print_av(t_l *l, t_opt *o);
-void						just_print(t_l *l, t_opt *o, int *tab);
-void						print_file(t_l *lav, t_opt *o, int *tab);
 void						print_in(t_l *l, t_opt *o, int *tab);
+
+void						just_print(t_l *l, t_opt *o);
+int							print_av(t_l *l, t_opt *o);
+void						print_file(t_l *lav, t_opt *o, int *tab);
 void						print_space(t_l *l, t_opt *o);
 
-int							find_char(char **av, char c);
 void						usage(char *str);
 void						title(t_l *lav, t_opt *o);
+int							find_char(char **av, char c);
 int							close_dir(DIR *dir);
-int							is_dir(char *str);
-int							is_link(char *str);
-int							is_opt(char *fmt);
 int							no_option(t_opt *o);
 int							thereis_files(t_opt *o);
 int							isnot_points(char *str);
+int							is_dir(char *str);
+int							is_link(char *str);
+int							is_opt(char *fmt);
 
 #endif

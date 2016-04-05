@@ -20,6 +20,7 @@ t_opt				*get_opt(int ac, char **av)
 		return (NULL);
 	o->av = av;
 	o->ac = ac;
+	o->time_c = time(NULL);
 	o->one = find_char(av, '1');
 	o->l = find_char(av, 'l');
 	o->rm = find_char(av, 'R');

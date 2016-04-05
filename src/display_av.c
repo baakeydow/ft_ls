@@ -49,7 +49,7 @@ void				l_option(t_l *l, t_opt *o, int *tab)
 		print_name(tab[1], l);
 		print_grpname(tab[2], l);
 		print_size(tab[3], l);
-		time_it(l);
+		time_it(l, o);
 		get_link(l);
 	}
 	else

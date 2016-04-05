@@ -73,9 +73,8 @@ int					get_padding_name(t_l *l)
 		return (0);
 	while (l)
 	{
-		stat(l->path, &s);
-		if ((ft_strlen(getpwuid(s.st_uid)->pw_name)) >= (size_t)len)
-			len = ft_strlen(getpwuid(s.st_uid)->pw_name);
+		if ((ft_strlen(getpwuid(l->s.st_uid)->pw_name)) >= (size_t)len)
+			len = ft_strlen(getpwuid(l->s.st_uid)->pw_name);
 		l = l->next;
 	}
 	return (len);
@@ -146,7 +145,10 @@ void				print_size(int len, t_l *l)
 		i = len - ft_strlen(ft_itoa(l->s.st_size));
 	while (i--)
 		ft_putchar(' ');
-	ft_printf("  %s", ft_itoa(l->s.st_size));
+	if (S_ISBLK(l->s.st_mode) || S_ISCHR(l->s.st_mode))
+		ft_printf("%3d, %3d", major(l->s.st_rdev), minor(l->s.st_rdev));
+	else
+		ft_printf("  %s", ft_itoa(l->s.st_size));
 }
 
 char				*get_path(char *dir, char *file)

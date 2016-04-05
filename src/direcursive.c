@@ -30,7 +30,7 @@ int             direcursive(t_l *l, t_opt *o)
     n = NULL;
     if (!l)
         return (0);
-    just_print(l, o, get_tab_spaces(l));
+    just_print(l, o);
     while (l)
     {
         if (is_dir(l->path) && isnot_points(l->arg))
