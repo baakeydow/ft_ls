@@ -22,6 +22,8 @@ int					get_padding_size(t_l *l)
 		return (0);
 	while (l)
 	{
+		lstat(l->path, &s);
+		l->s = s;
 		if ((ft_strlen(ft_itoa(l->s.st_size)) >= (size_t)len))
 			len = ft_strlen(ft_itoa(l->s.st_size));
 		l = l->next;
@@ -39,6 +41,8 @@ int					get_padding_links(t_l *l)
 		return (0);
 	while (l)
 	{
+		lstat(l->path, &s);
+		l->s = s;
 		if ((ft_strlen(ft_itoa(l->s.st_nlink)) >= (size_t)len))
 			len = ft_strlen(ft_itoa(l->s.st_nlink));
 		l = l->next;
@@ -49,15 +53,22 @@ int					get_padding_links(t_l *l)
 int					get_padding_grp(t_l *l)
 {
 	int		len;
-	struct stat s;
+	struct	stat s;
 
 	len = 0;
 	if (!l || (stat(l->path, &s) != 0))
 		return (0);
 	while (l)
 	{
-		if ((ft_strlen(getgrgid(l->s.st_gid)->gr_name)) >= (size_t)len)
-			len = ft_strlen(getgrgid(l->s.st_gid)->gr_name);
+		lstat(l->path, &s);
+		l->s = s;
+		if (getgrgid(l->s.st_gid))
+		{
+			if ((ft_strlen(getgrgid(l->s.st_gid)->gr_name)) >= (size_t)len)
+				len = ft_strlen(getgrgid(l->s.st_gid)->gr_name);
+		}
+		else if ((ft_strlen(ft_itoa(l->s.st_gid))) >= (size_t)len)
+			len = ft_strlen(ft_itoa(l->s.st_gid));
 		l = l->next;
 	}
 	return (len);
@@ -73,8 +84,15 @@ int					get_padding_name(t_l *l)
 		return (0);
 	while (l)
 	{
-		if ((ft_strlen(getpwuid(l->s.st_uid)->pw_name)) >= (size_t)len)
-			len = ft_strlen(getpwuid(l->s.st_uid)->pw_name);
+		lstat(l->path, &s);
+		l->s = s;
+		if (getpwuid(l->s.st_uid))
+		{
+			if ((ft_strlen(getpwuid(l->s.st_uid)->pw_name)) >= (size_t)len)
+				len = ft_strlen(getpwuid(l->s.st_uid)->pw_name);
+		}
+		else if ((ft_strlen(ft_itoa(l->s.st_gid))) >= (size_t)len)
+			len = ft_strlen(ft_itoa(l->s.st_gid));
 		l = l->next;
 	}
 	return (len);
@@ -95,29 +113,55 @@ int					*get_tab_spaces(t_l *l)
 void				print_grpname(int len, t_l *l)
 {
 	int		i;
+	struct stat s;
 
 	i = 0;
-	if (!l || (stat(l->path, &l->s) != 0))
+	if (!l || (stat(l->path, &s) != 0))
 		return ;
-	if ((size_t)len > ft_strlen(getgrgid(l->s.st_gid)->gr_name))
-		i = len - ft_strlen(getgrgid(l->s.st_gid)->gr_name);
-	ft_printf("  %s", getgrgid(l->s.st_gid)->gr_name);
-	while (i--)
-		ft_putchar(' ');
+	l->s = s;
+	if (getgrgid(l->s.st_gid))
+	{
+		if ((size_t)len > ft_strlen(getgrgid(l->s.st_gid)->gr_name))
+			i = len - ft_strlen(getgrgid(l->s.st_gid)->gr_name);
+		ft_printf("  %s", getgrgid(l->s.st_gid)->gr_name);
+		while (i--)
+			ft_putchar(' ');
+	}
+	else
+	{
+		if ((size_t)len > ft_strlen(ft_itoa(l->s.st_gid)))
+			i = len - ft_strlen(ft_itoa(l->s.st_gid));
+		ft_printf("  %d", l->s.st_gid);
+		while (i--)
+			ft_putchar(' ');
+	}
 }
 
 void				print_name(int len, t_l *l)
 {
 	int		i;
+	struct stat s;
 
 	i = 0;
-	if (!l || (stat(l->path, &l->s) != 0))
+	if (!l || (stat(l->path, &s) != 0))
 		return ;
-	if ((size_t)len > ft_strlen(getpwuid(l->s.st_uid)->pw_name))
-		i = len - ft_strlen(getpwuid(l->s.st_uid)->pw_name);
-	ft_printf(" %s", getpwuid(l->s.st_uid)->pw_name);
-	while (i--)
-		ft_putchar(' ');
+	l->s = s;
+	if (getpwuid(l->s.st_uid))
+	{
+		if ((size_t)len > ft_strlen(getpwuid(l->s.st_uid)->pw_name))
+			i = len - ft_strlen(getpwuid(l->s.st_uid)->pw_name);
+		ft_printf("  %s", getpwuid(l->s.st_uid)->pw_name);
+		while (i--)
+			ft_putchar(' ');
+	}
+	else
+	{
+		if ((size_t)len > ft_strlen(ft_itoa(l->s.st_uid)))
+			i = len - ft_strlen(ft_itoa(l->s.st_uid));
+		ft_printf("  %d", l->s.st_uid);
+		while (i--)
+			ft_putchar(' ');
+	}
 }
 
 void				print_links(int len, t_l *l)
