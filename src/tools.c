@@ -150,7 +150,7 @@ void				print_name(int len, t_l *l)
 	{
 		if ((size_t)len > ft_strlen(getpwuid(l->s.st_uid)->pw_name))
 			i = len - ft_strlen(getpwuid(l->s.st_uid)->pw_name);
-		ft_printf("  %s", getpwuid(l->s.st_uid)->pw_name);
+		ft_printf(" %s", getpwuid(l->s.st_uid)->pw_name);
 		while (i--)
 			ft_putchar(' ');
 	}
@@ -158,7 +158,7 @@ void				print_name(int len, t_l *l)
 	{
 		if ((size_t)len > ft_strlen(ft_itoa(l->s.st_uid)))
 			i = len - ft_strlen(ft_itoa(l->s.st_uid));
-		ft_printf("  %d", l->s.st_uid);
+		ft_printf(" %d", l->s.st_uid);
 		while (i--)
 			ft_putchar(' ');
 	}
