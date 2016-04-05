@@ -63,6 +63,8 @@ int							print_all_right(t_opt *o)
 	t_l					*l;
 
 	l = NULL;
+	if (!o)
+		return (0);
 	if (o->ac != 1 && thereis_files(o))
 	{
 		l = initav_list(o->av, o);

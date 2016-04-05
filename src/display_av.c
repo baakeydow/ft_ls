@@ -34,9 +34,9 @@ void				print_in(t_l *l, t_opt *o, int *tab)
 {
 	struct stat s;
 
-	if ((stat(l->path, &s) == 0) && o->a && !is_opt(l->path))
+	if ((stat(l->path, &s) == 0) && o->a && !is_opt(l->arg))
 		l_option(l, o, tab);
-	else if ((stat(l->path, &s) == 0) && l->arg[0] != '.' && !is_opt(l->path))
+	else if ((stat(l->path, &s) == 0) && l->arg[0] != '.' && !is_opt(l->arg))
 		l_option(l, o, tab);
 }
 

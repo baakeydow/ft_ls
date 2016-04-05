@@ -6,7 +6,7 @@
 /*   By: bndao <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/17 07:26:33 by bndao             #+#    #+#             */
-/*   Updated: 2016/03/27 17:33:23 by bndao            ###   ########.fr       */
+/*   Updated: 2016/04/05 20:04:41 by bndao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,10 @@ t_l							*l_new(char *arg, char *path);
 char						*get_path(char *dir, char *file);
 t_l							*getdir_nodes(char *str, t_opt *o);
 void						push_back_list(t_l *b_list, t_l *list);
+
 void						merge_sort(t_l **source, t_opt *o);
+void						part(t_l *head, t_l **front, t_l **back);
+t_l							*merge_lists(t_l *a, t_l *b, t_opt *o);
 
 int							get_padding_size(t_l *l);
 int							get_padding_links(t_l *l);

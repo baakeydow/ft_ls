@@ -66,6 +66,8 @@ int				display_error(char **av, t_opt *o)
 	t_l			*l;
 	int			j;
 
+	if (!o)
+		return (1);
 	if (av[1])
 	{
 		j = 2;
@@ -87,6 +89,8 @@ int				thereis_files(t_opt *o)
 
 	i = 1;
 	cmp = 0;
+	if (!o)
+		return (0);
 	if (o->ac == 1)
 		return (0);
 	while (o->av[i])

@@ -16,9 +16,9 @@ int             isnot_points(char *str)
 {
     if (!str)
         return (0);
-    if (str[0] == '.')
+    if (ft_strlen(str) == 1 && str[0] == '.')
         return (0);
-    if (ft_strlen(str) > 2 && str[0] == '.' && str[1] == '.')
+    if (ft_strlen(str) == 2 && str[0] == '.' && str[1] == '.')
         return (0);
     return (1);
 }
@@ -39,7 +39,7 @@ int             direcursive(t_l *l, t_opt *o)
             title(l, o);
             n = getdir_nodes(l->path, o);
             if (n)
-                direcursive(n->next, o);
+                direcursive(n, o);
         }
         l = l->next;
     }
