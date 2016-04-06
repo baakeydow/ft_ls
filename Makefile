@@ -15,18 +15,21 @@ NAME = ft_ls
 FLAGS = -Wall
 FLAGS += -Werror
 FLAGS += -Wextra
-FLAGS += -g
 
 SRCDIR = src/
 
 SRC = $(SRCDIR)main.c \
+		$(SRCDIR)errors.c \
+		$(SRCDIR)initav_list.c \
+		$(SRCDIR)spaces.c \
+		$(SRCDIR)rights.c \
+		$(SRCDIR)print.c \
+		$(SRCDIR)display.c \
+		$(SRCDIR)get.c \
 		$(SRCDIR)tools.c \
 		$(SRCDIR)list.c \
 		$(SRCDIR)mergesort.c \
 		$(SRCDIR)parse_it.c \
-		$(SRCDIR)errors.c \
-		$(SRCDIR)display_av.c \
-		$(SRCDIR)initav_list.c \
 		$(SRCDIR)direcursive.c \
 
 INC = header

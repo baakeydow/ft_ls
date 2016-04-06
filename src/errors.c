@@ -80,33 +80,3 @@ int				display_error(char **av, t_opt *o)
 	}
 	return (0);
 }
-
-int				thereis_files(t_opt *o)
-{
-	int			i;
-	int			cmp;
-	struct stat s;
-
-	i = 1;
-	cmp = 0;
-	if (!o)
-		return (0);
-	if (o->ac == 1)
-		return (0);
-	while (o->av[i])
-	{
-		if (stat(o->av[i], &s) == 0)
-			cmp++;
-		i++;
-	}
-	if (cmp == 0)
-		return (0);
-	return (cmp);
-}
-
-int				no_option(t_opt *o)
-{
-	if (!o->l && !o->one && !o->rm && !o->a && !o->r && !o->t)
-		return (1);
-	return (0);
-}

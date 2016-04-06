@@ -51,7 +51,6 @@ int							display_error(char **av, t_opt *o);
 int							print_all_right(t_opt *o);
 
 t_l							*l_new(char *arg, char *path);
-char						*get_path(char *dir, char *file);
 t_l							*getdir_nodes(char *str, t_opt *o);
 void						push_back_list(t_l *b_list, t_l *list);
 
@@ -94,6 +93,7 @@ void						print_space(t_l *l, t_opt *o);
 
 void						usage(char *str);
 void						title(t_l *lav, t_opt *o);
+char						*chams(char *dir, char *file);
 int							find_char(char **av, char c);
 int							close_dir(DIR *dir);
 int							no_option(t_opt *o);

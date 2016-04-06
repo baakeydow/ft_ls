@@ -50,11 +50,11 @@ t_l	 				*l_new(char *dir, char *arg)
 	t_l		*node;
 	struct stat	s;
 
-	lstat(get_path(dir, arg), &s);
+	lstat(chams(dir, arg), &s);
 	if (!(node = (t_l *)malloc(sizeof(t_l))))
 		return (NULL);
 	node->arg = arg;
-	node->path = get_path(dir, arg);
+	node->path = chams(dir, arg);
 	node->s = s;
 	node->next = NULL;
 	return (node);
@@ -79,4 +79,23 @@ t_l					*getdir_nodes(char *str, t_opt *o)
 	merge_sort(&l, o);
 	close_dir(dir);
 	return (l);
+}
+
+t_l					*initav_list(char **av, t_opt *o)
+{
+	int		i;
+	t_l 	*start;
+
+	if (no_dir_in(av) || just_dir_in(av))
+	{
+		i = 2;
+		start = l_new(NULL, av[1]);
+		while (av[i])
+			push_back_list(start, l_new(NULL, av[i++]));
+		merge_sort(&start, o);
+		return (start);
+	}
+	else if (!is_dir(av[1]))
+		return (not_by_dir(av, o));
+	return (by_dir(av, o));
 }

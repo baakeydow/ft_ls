@@ -12,48 +12,38 @@
 
 #include "ft_ls.h"
 
-static void	date(char *s)
+void				title(t_l *lav, t_opt *o)
 {
-	char *c;
-	char year[6];
-
-	c = ft_strrchr(s, ' ');
-	if (c == NULL)
-		return ;
-	ft_strncpy(year + 1, c + 1, 4);
-	year[0] = ' ';
-	year[5] = '\0';
-	c = ft_strchr(s, ':');
-	if (c == NULL)
-		return ;
-	ft_strcpy(c - 2, year);
-	c = ft_strchr(s, ' ');
-	if (c == NULL)
-		return ;
-	c++;
-	ft_printf(" %s", c);
+	if (lav && is_dir(lav->path) && !o->a)
+	{
+		if (lav->arg[0] != '.')
+			ft_printf("%s:\n", lav->path);
+	}
+	else if (is_dir(lav->path) && o->a)
+		ft_printf("%s:\n", lav->path);
 }
 
-
-void				time_it(t_l *l, t_opt *o)
+int				is_opt(char *fmt)
 {
-	char	*t;
-	char	**b;
-	int		i;
+	int			i;
+	struct stat s;
 
 	i = 0;
-	if (!l)
-		return ;
-	t = ctime(&l->s.st_mtime);
-	b = ft_strsplit(t, ' ');
-	if (l->s.st_mtime > o->time_c - ((6 * 30 + 2) * 24 * 3600)  &&
-				l->s.st_mtime < o->time_c + ((6 * 30 + 2) * 24 * 3600))
+	if (!fmt)
+		return (0);
+	if (fmt[0] == '-' && !fmt[1] && stat(fmt, &s) != 0)
+		return (0);
+	if (fmt[0] != '-' || !fmt[1] || fmt[1] == '-')
+		return (0);
+	while (fmt[i])
 	{
-		ft_printf(" %s %2d ", b[1], ft_atoi(b[2]));
-		ft_printf("%c%c%c%c%c", b[3][0], b[3][1], b[3][2], b[3][3], b[3][4]);
+		if (fmt[i] != '-' && fmt[i] != '1' && fmt[i] != 'l' && fmt[i] != 'R' &&
+				fmt[i] != 'a' && fmt[i] != 'r' && fmt[i] != 't' &&
+				fmt[i] != '\0')
+			return (0);
+		i++;
 	}
-	else
-		date(t);
+	return (1);
 }
 
 void				get_link(t_l *l)
@@ -73,74 +63,6 @@ void				get_link(t_l *l)
 	else
 		ft_printf(" %s\n", l->arg);
 	free(buffer);
-}
-
-char				get_type(t_l *l)
-{
-	char	c;
-
-	c = '-';
-	c = S_ISDIR(l->s.st_mode) ? 'd' : c;
-	c = S_ISCHR(l->s.st_mode) ? 'c' : c;
-	c = S_ISBLK(l->s.st_mode) ? 'b' : c;
-	c = S_ISFIFO(l->s.st_mode) ? 'p' : c;
-	c = S_ISLNK(l->s.st_mode) ? 'l' : c;
-	c = S_ISSOCK(l->s.st_mode) ? 's' : c;
-	return (c);
-}
-
-static void 				stickybits_usr(t_l *l)
-{
-	if (l->s.st_mode & S_IXUSR && l->s.st_mode & S_ISUID)
-		ft_printf("s");
-	else if (l->s.st_mode & S_ISUID)
-		ft_putchar('S');
-	else if (l->s.st_mode & S_IXUSR)
-		ft_putchar('x');
-	else
-		ft_putchar('-');
-}
-
-static void 				stickybits_grp(t_l *l)
-{
-	if (l->s.st_mode & S_IXGRP && l->s.st_mode & S_ISGID)
-		ft_putchar('s');
-	else if (l->s.st_mode & S_ISGID)
-		ft_putchar('S');
-	else if (l->s.st_mode & S_IXGRP)
-		ft_putchar('x');
-	else
-		ft_putchar('-');
-}
-
-static void 				stickybits_others(t_l *l)
-{
-	if (l->s.st_mode & S_IXOTH && l->s.st_mode & S_ISVTX)
-		ft_putchar('t');
-	else if (l->s.st_mode & S_ISVTX)
-		ft_putchar('T');
-	else if (l->s.st_mode & S_IXOTH)
-		ft_putchar('x');
-	else
-		ft_putchar('-');
-}
-
-void				print_rights(t_l *l)
-{
-	char	c;
-
-	if (!l)
-		return ;
-	ft_putchar(get_type(l));
-	ft_putchar(c = (l->s.st_mode & S_IRUSR ? 'r' : '-'));
-	ft_putchar(c = (l->s.st_mode & S_IWUSR ? 'w' : '-'));
-	stickybits_usr(l);
-	ft_putchar(c = (l->s.st_mode & S_IRGRP ? 'r' : '-'));
-	ft_putchar(c = (l->s.st_mode & S_IWGRP ? 'w' : '-'));
-	stickybits_grp(l);
-	ft_putchar(c = (l->s.st_mode & S_IROTH ? 'r' : '-'));
-	ft_putchar(c = (l->s.st_mode & S_IWOTH ? 'w' : '-'));
-	stickybits_others(l);
 }
 
 int					get_total(t_l *l, t_opt *o)
