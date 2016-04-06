@@ -37,7 +37,10 @@ int				direcursive(t_l *l, t_opt *o)
 		{
 			ft_putchar('\n');
 			title(l, o);
-			n = getdir_nodes(l->path, o);
+			if (o->a)
+				n = getdir_nodes(l->path, o);
+			else if (l->arg[0] != '.')
+				n = getdir_nodes(l->path, o);
 			if (n)
 				direcursive(n, o);
 		}

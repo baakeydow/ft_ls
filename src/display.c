@@ -40,6 +40,32 @@ int						print_av(t_l *lav, t_opt *o)
 	return (1);
 }
 
+void					l_option(t_l *l, t_opt *o, int *tab)
+{
+	if (o->l)
+	{
+		print_rights(l);
+		print_links(tab[0], l);
+		print_name(tab[1], l);
+		print_grpname(tab[2], l);
+		print_size(tab[3], l);
+		time_it(l, o);
+		get_link(l);
+	}
+	else
+		ft_printf("%s\n", l->arg);
+}
+
+void					print_in(t_l *l, t_opt *o, int *tab)
+{
+	struct stat s;
+
+	if ((stat(l->path, &s) == 0) && o->a && !is_opt(l->arg))
+		l_option(l, o, tab);
+	else if ((stat(l->path, &s) == 0) && l->arg[0] != '.' && !is_opt(l->arg))
+		l_option(l, o, tab);
+}
+
 void					just_print(t_l *l, t_opt *o)
 {
 	int		*tab;
@@ -74,30 +100,4 @@ void					print_file(t_l *la, t_opt *o, int *tab)
 		if (stat(la->path, &(la->s)) == 0 && la->next && is_dir(la->next->path))
 			ft_putchar('\n');
 	}
-}
-
-void					print_in(t_l *l, t_opt *o, int *tab)
-{
-	struct stat s;
-
-	if ((stat(l->path, &s) == 0) && o->a && !is_opt(l->arg))
-		l_option(l, o, tab);
-	else if ((stat(l->path, &s) == 0) && l->arg[0] != '.' && !is_opt(l->arg))
-		l_option(l, o, tab);
-}
-
-void					l_option(t_l *l, t_opt *o, int *tab)
-{
-	if (o->l)
-	{
-		print_rights(l);
-		print_links(tab[0], l);
-		print_name(tab[1], l);
-		print_grpname(tab[2], l);
-		print_size(tab[3], l);
-		time_it(l, o);
-		get_link(l);
-	}
-	else
-		ft_printf("%s\n", l->arg);
 }
