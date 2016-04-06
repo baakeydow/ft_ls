@@ -12,6 +12,15 @@
 
 #include "ft_ls.h"
 
+static int			ok(t_opt *o)
+{
+	if ((!display_error(o->av, o) &&
+				!thereis_files(o) &&
+				!no_option(o)) || o->ac == 1)
+		return (1);
+	return (0);
+}
+
 int					print_all_right(t_opt *o)
 {
 	t_l		*l;
@@ -19,7 +28,7 @@ int					print_all_right(t_opt *o)
 	l = NULL;
 	if (!o)
 		return (0);
-	if ((!display_error(o->av, o) && !thereis_files(o) && !no_option(o)) || o->ac == 1)
+	if (ok(o))
 	{
 		l = getdir_nodes(".", o);
 		if (o->rm)
