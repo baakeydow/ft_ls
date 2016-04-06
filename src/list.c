@@ -6,7 +6,7 @@
 /*   By: bndao <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/20 14:40:29 by bndao             #+#    #+#             */
-/*   Updated: 2016/04/06 03:13:25 by bndao            ###   ########.fr       */
+/*   Updated: 2016/04/06 03:16:23 by bndao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,9 @@ t_l					*getdir_nodes(char *str, t_opt *o)
 	DIR				*dir;
 	t_l				*l;
 
-	*f = NULL;
-	*file = NULL;
-	*dir = NULL;
+	f = NULL;
+	file = NULL;
+	dir = NULL;
 	if (!(dir = opendir(str)))
 	{
 		perror(str);
