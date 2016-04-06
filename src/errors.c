@@ -6,13 +6,13 @@
 /*   By: bndao <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/27 19:59:37 by bndao             #+#    #+#             */
-/*   Updated: 2016/03/27 19:59:47 by bndao            ###   ########.fr       */
+/*   Updated: 2016/04/06 03:02:12 by bndao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-void			usage(char *str)
+void				usage(char *str)
 {
 	int		i;
 
@@ -25,7 +25,7 @@ void			usage(char *str)
 			ft_putstr_fd("ft_ls: illegal option -- ", 2);
 			ft_putchar_fd(str[i], 2);
 			ft_putendl_fd("\nusage: ft_ls [-1lRart] [file ...]", 2);
-			exit (EXIT_FAILURE);
+			exit(EXIT_FAILURE);
 		}
 		i++;
 	}
@@ -57,11 +57,10 @@ static int			look_for_it(char **av, t_l *l)
 		}
 		l = l->next;
 	}
-	free(l);
 	return (c);
 }
 
-int				display_error(char **av, t_opt *o)
+int					display_error(char **av, t_opt *o)
 {
 	t_l			*l;
 	int			j;

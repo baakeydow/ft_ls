@@ -6,16 +6,16 @@
 /*   By: bndao <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/06 02:02:48 by bndao             #+#    #+#             */
-/*   Updated: 2016/04/06 02:03:21 by bndao            ###   ########.fr       */
+/*   Updated: 2016/04/06 03:12:25 by bndao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-int					get_padding_size(t_l *l)
+int							get_padding_size(t_l *l)
 {
-	int		len;
-	struct stat s;
+	int				len;
+	struct stat		s;
 
 	len = 0;
 	if (!l || (stat(l->path, &s) != 0))
@@ -31,10 +31,10 @@ int					get_padding_size(t_l *l)
 	return (len);
 }
 
-int					get_padding_links(t_l *l)
+int							get_padding_links(t_l *l)
 {
-	int		len;
-	struct stat s;
+	int				len;
+	struct stat		s;
 
 	len = 0;
 	if (!l || (stat(l->path, &s) != 0))
@@ -50,10 +50,10 @@ int					get_padding_links(t_l *l)
 	return (len);
 }
 
-int					get_padding_grp(t_l *l)
+int							get_padding_grp(t_l *l)
 {
-	int		len;
-	struct	stat s;
+	int				len;
+	struct stat		s;
 
 	len = 0;
 	if (!l || (stat(l->path, &s) != 0))
@@ -74,10 +74,10 @@ int					get_padding_grp(t_l *l)
 	return (len);
 }
 
-int					get_padding_name(t_l *l)
+int							get_padding_name(t_l *l)
 {
-	int		len;
-	struct stat s;
+	int				len;
+	struct stat		s;
 
 	len = 0;
 	if (!l || (stat(l->path, &s) != 0))
@@ -98,9 +98,9 @@ int					get_padding_name(t_l *l)
 	return (len);
 }
 
-int					*get_tab_spaces(t_l *l)
+int							*get_tab_spaces(t_l *l)
 {
-	int 	*tab;
+	int		*tab;
 
 	tab = (int *)malloc(sizeof(int) * 4);
 	tab[0] = get_padding_links(l);

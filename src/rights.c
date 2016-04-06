@@ -6,13 +6,13 @@
 /*   By: bndao <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/06 01:57:17 by bndao             #+#    #+#             */
-/*   Updated: 2016/04/06 01:57:49 by bndao            ###   ########.fr       */
+/*   Updated: 2016/04/06 03:11:08 by bndao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-static void 				stickybits_usr(t_l *l)
+static void				stickybits_usr(t_l *l)
 {
 	if (l->s.st_mode & S_IXUSR && l->s.st_mode & S_ISUID)
 		ft_printf("s");
@@ -24,7 +24,7 @@ static void 				stickybits_usr(t_l *l)
 		ft_putchar('-');
 }
 
-static void 				stickybits_grp(t_l *l)
+static void				stickybits_grp(t_l *l)
 {
 	if (l->s.st_mode & S_IXGRP && l->s.st_mode & S_ISGID)
 		ft_putchar('s');
@@ -36,7 +36,7 @@ static void 				stickybits_grp(t_l *l)
 		ft_putchar('-');
 }
 
-static void 				stickybits_others(t_l *l)
+static void				stickybits_others(t_l *l)
 {
 	if (l->s.st_mode & S_IXOTH && l->s.st_mode & S_ISVTX)
 		ft_putchar('t');
@@ -48,7 +48,7 @@ static void 				stickybits_others(t_l *l)
 		ft_putchar('-');
 }
 
-char				get_type(t_l *l)
+char					get_type(t_l *l)
 {
 	char	c;
 
@@ -62,7 +62,7 @@ char				get_type(t_l *l)
 	return (c);
 }
 
-void				print_rights(t_l *l)
+void					print_rights(t_l *l)
 {
 	char	c;
 

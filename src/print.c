@@ -6,7 +6,7 @@
 /*   By: bndao <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/06 02:07:04 by bndao             #+#    #+#             */
-/*   Updated: 2016/04/06 02:07:22 by bndao            ###   ########.fr       */
+/*   Updated: 2016/04/06 03:13:58 by bndao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void				print_links(int len, t_l *l)
 {
-	int		i;
-	struct stat s;
+	int			i;
+	struct stat	s;
 
 	i = 0;
 	if (!l || (stat(l->path, &s) != 0))
@@ -30,7 +30,7 @@ void				print_links(int len, t_l *l)
 
 void				print_name(int len, t_l *l)
 {
-	int		i;
+	int			i;
 	struct stat s;
 
 	i = 0;
@@ -57,7 +57,7 @@ void				print_name(int len, t_l *l)
 
 void				print_grpname(int len, t_l *l)
 {
-	int		i;
+	int			i;
 	struct stat s;
 
 	i = 0;
@@ -84,7 +84,7 @@ void				print_grpname(int len, t_l *l)
 
 void				print_size(int len, t_l *l)
 {
-	int		i;
+	int			i;
 	struct stat s;
 
 	i = 0;

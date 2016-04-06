@@ -6,7 +6,7 @@
 /*   By: bndao <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/20 14:40:29 by bndao             #+#    #+#             */
-/*   Updated: 2016/03/27 17:45:50 by bndao            ###   ########.fr       */
+/*   Updated: 2016/04/06 03:13:25 by bndao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,9 @@ void				push_back_list(t_l *b_list, t_l *new)
 	}
 }
 
-t_l	 				*l_new(char *dir, char *arg)
+t_l					*l_new(char *dir, char *arg)
 {
-	t_l		*node;
+	t_l			*node;
 	struct stat	s;
 
 	lstat(chams(dir, arg), &s);
@@ -62,11 +62,14 @@ t_l	 				*l_new(char *dir, char *arg)
 
 t_l					*getdir_nodes(char *str, t_opt *o)
 {
-	struct dirent	*f = NULL;
-	struct dirent	*file = NULL;
-	DIR				*dir = NULL;
+	struct dirent	*f;
+	struct dirent	*file;
+	DIR				*dir;
 	t_l				*l;
 
+	*f = NULL;
+	*file = NULL;
+	*dir = NULL;
 	if (!(dir = opendir(str)))
 	{
 		perror(str);
@@ -84,7 +87,7 @@ t_l					*getdir_nodes(char *str, t_opt *o)
 t_l					*initav_list(char **av, t_opt *o)
 {
 	int		i;
-	t_l 	*start;
+	t_l		*start;
 
 	if (no_dir_in(av) || just_dir_in(av))
 	{

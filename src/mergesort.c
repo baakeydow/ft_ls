@@ -6,7 +6,7 @@
 /*   By: bndao <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/22 01:35:39 by bndao             #+#    #+#             */
-/*   Updated: 2016/03/27 17:24:32 by bndao            ###   ########.fr       */
+/*   Updated: 2016/04/06 03:09:14 by bndao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void				part(t_l *head, t_l **front, t_l **back)
 	}
 }
 
-static int		datecmp(t_l *a, t_l *b)
+static int			datecmp(t_l *a, t_l *b)
 {
 	if (a->s.st_mtime > b->s.st_mtime)
 		return (0);
@@ -60,7 +60,7 @@ static int		datecmp(t_l *a, t_l *b)
 	return (0);
 }
 
-static int decide_sort(t_l *a, t_l *b, t_opt *o)
+static int			decide_sort(t_l *a, t_l *b, t_opt *o)
 {
 	if (o->t)
 		return (datecmp(a, b));
@@ -69,7 +69,7 @@ static int decide_sort(t_l *a, t_l *b, t_opt *o)
 	return (0);
 }
 
-t_l				*merge_lists(t_l *a, t_l *b, t_opt *o)
+t_l					*merge_lists(t_l *a, t_l *b, t_opt *o)
 {
 	t_l *merge_it;
 
@@ -91,7 +91,7 @@ t_l				*merge_lists(t_l *a, t_l *b, t_opt *o)
 	return (merge_it);
 }
 
-void			merge_sort(t_l **source, t_opt *o)
+void				merge_sort(t_l **source, t_opt *o)
 {
 	t_l		*head;
 	t_l		*a;

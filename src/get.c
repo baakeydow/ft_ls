@@ -6,33 +6,34 @@
 /*   By: bndao <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/06 02:11:43 by bndao             #+#    #+#             */
-/*   Updated: 2016/04/06 02:12:01 by bndao            ###   ########.fr       */
+/*   Updated: 2016/04/06 03:10:28 by bndao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-static void	date(char *s)
+static void			date(char *s)
 {
-	char *c;
-	char year[6];
+	char	*c;
+	char	y[6];
 
 	c = ft_strrchr(s, ' ');
 	if (c == NULL)
 		return ;
-	ft_strncpy(year + 1, c + 1, 4);
-	year[0] = ' ';
-	year[5] = '\0';
+	ft_strncpy(y + 1, c + 1, 4);
+	y[0] = ' ';
+	y[5] = '\0';
 	c = ft_strchr(s, ':');
 	if (c == NULL)
 		return ;
-	ft_strcpy(c - 2, year);
+	ft_strcpy(c - 2, y);
 	c = ft_strchr(s, ' ');
 	if (c == NULL)
 		return ;
 	c++;
 	ft_printf(" %s", c);
 }
+
 void				time_it(t_l *l, t_opt *o)
 {
 	char	*t;
@@ -44,7 +45,7 @@ void				time_it(t_l *l, t_opt *o)
 		return ;
 	t = ctime(&l->s.st_mtime);
 	b = ft_strsplit(t, ' ');
-	if (l->s.st_mtime > o->time_c - ((6 * 30 + 2) * 24 * 3600)  &&
+	if (l->s.st_mtime > o->time_c - ((6 * 30 + 2) * 24 * 3600) &&
 				l->s.st_mtime < o->time_c + ((6 * 30 + 2) * 24 * 3600))
 	{
 		ft_printf(" %s %2d ", b[1], ft_atoi(b[2]));
@@ -77,7 +78,7 @@ char				*chams(char *dir, char *file)
 	return (name);
 }
 
-int				thereis_files(t_opt *o)
+int					thereis_files(t_opt *o)
 {
 	int			i;
 	int			cmp;
@@ -100,7 +101,7 @@ int				thereis_files(t_opt *o)
 	return (cmp);
 }
 
-int				no_option(t_opt *o)
+int					no_option(t_opt *o)
 {
 	if (!o->l && !o->one && !o->rm && !o->a && !o->r && !o->t)
 		return (1);

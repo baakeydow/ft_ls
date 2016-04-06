@@ -6,7 +6,7 @@
 /*   By: bndao <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/17 07:53:38 by bndao             #+#    #+#             */
-/*   Updated: 2016/03/27 17:27:00 by bndao            ###   ########.fr       */
+/*   Updated: 2016/04/06 03:11:48 by bndao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,10 @@ int				is_link(char *str)
 	return (0);
 }
 
-int 			no_dir_in(char **av)
+int				no_dir_in(char **av)
 {
-	int 	i;
-	int 	cmp;
+	int		i;
+	int		cmp;
 
 	i = 1;
 	cmp = 0;
@@ -64,10 +64,10 @@ int 			no_dir_in(char **av)
 	return (0);
 }
 
-int 			just_dir_in(char **av)
+int				just_dir_in(char **av)
 {
-	int 	i;
-	int 	cmp;
+	int		i;
+	int		cmp;
 
 	i = 1;
 	cmp = 0;

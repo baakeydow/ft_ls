@@ -6,7 +6,7 @@
 /*   By: bndao <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/23 06:59:50 by bndao             #+#    #+#             */
-/*   Updated: 2016/03/27 17:45:23 by bndao            ###   ########.fr       */
+/*   Updated: 2016/04/06 02:58:09 by bndao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void				title(t_l *lav, t_opt *o)
 		ft_printf("%s:\n", lav->path);
 }
 
-int				is_opt(char *fmt)
+int					is_opt(char *fmt)
 {
 	int			i;
 	struct stat s;

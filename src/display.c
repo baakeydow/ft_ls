@@ -6,16 +6,16 @@
 /*   By: bndao <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/28 05:13:04 by bndao             #+#    #+#             */
-/*   Updated: 2016/03/28 05:13:25 by bndao            ###   ########.fr       */
+/*   Updated: 2016/04/06 02:53:50 by bndao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-int					print_av(t_l *lav, t_opt *o)
+int						print_av(t_l *lav, t_opt *o)
 {
-	struct stat s;
-	t_l			*l;
+	struct stat		s;
+	t_l				*l;
 
 	while (lav)
 	{
@@ -24,7 +24,7 @@ int					print_av(t_l *lav, t_opt *o)
 			if (is_dir(lav->path))
 			{
 				if (thereis_files(o) >= 2)
-						title(lav, o);
+					title(lav, o);
 				l = getdir_nodes(lav->path, o);
 				if (o->rm)
 					direcursive(l, o);
@@ -40,25 +40,25 @@ int					print_av(t_l *lav, t_opt *o)
 	return (1);
 }
 
-void  		   just_print(t_l *l, t_opt *o)
+void					just_print(t_l *l, t_opt *o)
 {
-		int		*tab;
+	int		*tab;
 
-    if (!l)
-        return ;
-		tab = get_tab_spaces(l);
-		if (thereis_files(o) >= 2)
-				title(l, o);
-    if (o->l && get_total(l, o) != 0)
-        ft_printf("total %d\n", get_total(l, o));
-    while (l)
-    {
-        print_in(l, o, tab);
-        l = l->next;
-    }
+	if (!l)
+		return ;
+	tab = get_tab_spaces(l);
+	if (thereis_files(o) >= 2)
+		title(l, o);
+	if (o->l && get_total(l, o) != 0)
+		ft_printf("total %d\n", get_total(l, o));
+	while (l)
+	{
+		print_in(l, o, tab);
+		l = l->next;
+	}
 }
 
-void				print_file(t_l *la, t_opt *o, int *tab)
+void					print_file(t_l *la, t_opt *o, int *tab)
 {
 	if (o->a)
 	{
@@ -76,7 +76,7 @@ void				print_file(t_l *la, t_opt *o, int *tab)
 	}
 }
 
-void				print_in(t_l *l, t_opt *o, int *tab)
+void					print_in(t_l *l, t_opt *o, int *tab)
 {
 	struct stat s;
 
@@ -86,7 +86,7 @@ void				print_in(t_l *l, t_opt *o, int *tab)
 		l_option(l, o, tab);
 }
 
-void				l_option(t_l *l, t_opt *o, int *tab)
+void					l_option(t_l *l, t_opt *o, int *tab)
 {
 	if (o->l)
 	{

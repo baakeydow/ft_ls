@@ -6,7 +6,7 @@
 /*   By: bndao <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/28 05:18:45 by bndao             #+#    #+#             */
-/*   Updated: 2016/03/28 05:18:55 by bndao            ###   ########.fr       */
+/*   Updated: 2016/04/06 03:00:01 by bndao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ t_l					*get_all_d(int i, char **av, t_l *start)
 
 static int			while_dir(char **av)
 {
-	int		i;
+	int			i;
 	struct stat s;
 
 	i = 1;
@@ -54,7 +54,7 @@ static int			while_dir(char **av)
 t_l					*not_by_dir(char **av, t_opt *o)
 {
 	int		i;
-	t_l 	*start;
+	t_l		*start;
 	t_l		*tmp;
 
 	i = while_dir(av);
