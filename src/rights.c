@@ -14,11 +14,14 @@
 
 static void				stickybits_usr(t_l *l)
 {
-	if (l->s.st_mode & S_IXUSR && l->s.st_mode & S_ISUID)
+	struct stat		s;
+
+	lstat(l->path, &s);
+	if (s.st_mode & S_IXUSR && s.st_mode & S_ISUID)
 		ft_printf("s");
-	else if (l->s.st_mode & S_ISUID)
+	else if (s.st_mode & S_ISUID)
 		ft_putchar('S');
-	else if (l->s.st_mode & S_IXUSR)
+	else if (s.st_mode & S_IXUSR)
 		ft_putchar('x');
 	else
 		ft_putchar('-');
@@ -26,11 +29,14 @@ static void				stickybits_usr(t_l *l)
 
 static void				stickybits_grp(t_l *l)
 {
-	if (l->s.st_mode & S_IXGRP && l->s.st_mode & S_ISGID)
+	struct stat		s;
+
+	lstat(l->path, &s);
+	if (s.st_mode & S_IXGRP && s.st_mode & S_ISGID)
 		ft_putchar('s');
-	else if (l->s.st_mode & S_ISGID)
+	else if (s.st_mode & S_ISGID)
 		ft_putchar('S');
-	else if (l->s.st_mode & S_IXGRP)
+	else if (s.st_mode & S_IXGRP)
 		ft_putchar('x');
 	else
 		ft_putchar('-');
@@ -38,11 +44,14 @@ static void				stickybits_grp(t_l *l)
 
 static void				stickybits_others(t_l *l)
 {
-	if (l->s.st_mode & S_IXOTH && l->s.st_mode & S_ISVTX)
+	struct stat		s;
+
+	lstat(l->path, &s);
+	if (s.st_mode & S_IXOTH && s.st_mode & S_ISVTX)
 		ft_putchar('t');
-	else if (l->s.st_mode & S_ISVTX)
+	else if (s.st_mode & S_ISVTX)
 		ft_putchar('T');
-	else if (l->s.st_mode & S_IXOTH)
+	else if (s.st_mode & S_IXOTH)
 		ft_putchar('x');
 	else
 		ft_putchar('-');
@@ -50,32 +59,36 @@ static void				stickybits_others(t_l *l)
 
 char					get_type(t_l *l)
 {
-	char	c;
+	char			c;
+	struct stat		s;
 
+	lstat(l->path, &s);
 	c = '-';
-	c = S_ISDIR(l->s.st_mode) ? 'd' : c;
-	c = S_ISCHR(l->s.st_mode) ? 'c' : c;
-	c = S_ISBLK(l->s.st_mode) ? 'b' : c;
-	c = S_ISFIFO(l->s.st_mode) ? 'p' : c;
-	c = S_ISLNK(l->s.st_mode) ? 'l' : c;
-	c = S_ISSOCK(l->s.st_mode) ? 's' : c;
+	c = S_ISDIR(s.st_mode) ? 'd' : c;
+	c = S_ISCHR(s.st_mode) ? 'c' : c;
+	c = S_ISBLK(s.st_mode) ? 'b' : c;
+	c = S_ISFIFO(s.st_mode) ? 'p' : c;
+	c = S_ISLNK(s.st_mode) ? 'l' : c;
+	c = S_ISSOCK(s.st_mode) ? 's' : c;
 	return (c);
 }
 
 void					print_rights(t_l *l)
 {
-	char	c;
+	char			c;
+	struct stat		s;
 
+	lstat(l->path, &s);
 	if (!l)
 		return ;
 	ft_putchar(get_type(l));
-	ft_putchar(c = (l->s.st_mode & S_IRUSR ? 'r' : '-'));
-	ft_putchar(c = (l->s.st_mode & S_IWUSR ? 'w' : '-'));
+	ft_putchar(c = (s.st_mode & S_IRUSR ? 'r' : '-'));
+	ft_putchar(c = (s.st_mode & S_IWUSR ? 'w' : '-'));
 	stickybits_usr(l);
-	ft_putchar(c = (l->s.st_mode & S_IRGRP ? 'r' : '-'));
-	ft_putchar(c = (l->s.st_mode & S_IWGRP ? 'w' : '-'));
+	ft_putchar(c = (s.st_mode & S_IRGRP ? 'r' : '-'));
+	ft_putchar(c = (s.st_mode & S_IWGRP ? 'w' : '-'));
 	stickybits_grp(l);
-	ft_putchar(c = (l->s.st_mode & S_IROTH ? 'r' : '-'));
-	ft_putchar(c = (l->s.st_mode & S_IWOTH ? 'w' : '-'));
+	ft_putchar(c = (s.st_mode & S_IROTH ? 'r' : '-'));
+	ft_putchar(c = (s.st_mode & S_IWOTH ? 'w' : '-'));
 	stickybits_others(l);
 }

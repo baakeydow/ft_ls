@@ -68,16 +68,18 @@ void				get_link(t_l *l)
 int					get_total(t_l *l, t_opt *o)
 {
 	int		size;
+	struct stat		s;
 
 	if (!l->arg || !l)
 		return (0);
 	size = 0;
 	while (l)
 	{
+		lstat(l->path, &s);
 		if (o->a)
-			size += l->s.st_blocks;
+			size += s.st_blocks;
 		else if (l->arg[0] != '.')
-			size += l->s.st_blocks;
+			size += s.st_blocks;
 		l = l->next;
 	}
 	return (size);

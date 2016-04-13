@@ -91,6 +91,7 @@ int							print_av(t_l *l, t_opt *o);
 void						print_file(t_l *lav, t_opt *o, int *tab);
 void						print_space(t_l *l, t_opt *o);
 
+int							go_in(char *str, t_opt *o);
 void						usage(char *str);
 void						title(t_l *lav, t_opt *o);
 char						*chams(char *dir, char *file);

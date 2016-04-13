@@ -36,17 +36,19 @@ static void			date(char *s)
 
 void				time_it(t_l *l, t_opt *o)
 {
-	char	*t;
-	char	**b;
-	int		i;
+	char		*t;
+	char		**b;
+	int			i;
+	struct stat	s;
 
 	i = 0;
 	if (!l)
 		return ;
-	t = ctime(&l->s.st_mtime);
+	lstat(l->path, &s);
+	t = ctime(&s.st_mtime);
 	b = ft_strsplit(t, ' ');
-	if (l->s.st_mtime > o->time_c - ((6 * 30 + 2) * 24 * 3600) &&
-				l->s.st_mtime < o->time_c + ((6 * 30 + 2) * 24 * 3600))
+	if (s.st_mtime > o->time_c - ((6 * 30 + 2) * 24 * 3600) &&
+				s.st_mtime < o->time_c + ((6 * 30 + 2) * 24 * 3600))
 	{
 		ft_printf(" %s %2d ", b[1], ft_atoi(b[2]));
 		ft_printf("%c%c%c%c%c", b[3][0], b[3][1], b[3][2], b[3][3], b[3][4]);

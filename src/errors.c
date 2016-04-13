@@ -79,3 +79,14 @@ int					display_error(char **av, t_opt *o)
 	}
 	return (0);
 }
+
+int					go_in(char *str, t_opt *o)
+{
+	if (!o->l && is_dir(str))
+		return (1);
+	if (o->l && is_dir(str) && is_link(str) && str[ft_strlen(str) - 1] == '/')
+		return (1);
+	else if (is_dir(str) && !is_link(str))
+		return (1);
+	return (0);
+}

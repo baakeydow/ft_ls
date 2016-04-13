@@ -21,7 +21,7 @@ int						print_av(t_l *lav, t_opt *o)
 	{
 		if (stat(lav->path, &s) == 0)
 		{
-			if (is_dir(lav->path))
+			if (/*is_dir(lav->path)*/go_in(lav->path, o))
 			{
 				if (thereis_files(o) >= 2)
 					title(lav, o);
@@ -90,14 +90,16 @@ void					print_file(t_l *la, t_opt *o, int *tab)
 	{
 		if (stat(la->path, &(la->s)) == 0)
 			l_option(la, o, tab);
-		if (stat(la->path, &(la->s)) == 0 && la->next && is_dir(la->next->path))
+		if (stat(la->path, &(la->s)) == 0 && la->next &&
+				!is_link(la->path) && is_dir(la->next->path))
 			ft_putchar('\n');
 	}
 	else if (la->arg[0] != '.')
 	{
 		if (stat(la->path, &(la->s)) == 0)
 			l_option(la, o, tab);
-		if (stat(la->path, &(la->s)) == 0 && la->next && is_dir(la->next->path))
+		if (stat(la->path, &(la->s)) == 0 && la->next &&
+				!is_link(la->path) && is_dir(la->next->path))
 			ft_putchar('\n');
 	}
 }
