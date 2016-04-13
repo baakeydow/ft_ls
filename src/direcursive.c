@@ -6,7 +6,7 @@
 /*   By: bndao <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/27 20:21:01 by bndao             #+#    #+#             */
-/*   Updated: 2016/04/06 02:52:17 by bndao            ###   ########.fr       */
+/*   Updated: 2016/04/13 05:12:26 by bndao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int				isnot_points(char *str)
 int				direcursive(t_l *l, t_opt *o)
 {
 	t_l		*n;
+	t_l		*tmp;
 
 	n = NULL;
 	if (!l)
@@ -33,6 +34,7 @@ int				direcursive(t_l *l, t_opt *o)
 	just_print(l, o);
 	while (l)
 	{
+		tmp = l->next;
 		if (is_dir(l->path) && isnot_points(l->arg))
 		{
 			ft_putchar('\n');
@@ -44,7 +46,8 @@ int				direcursive(t_l *l, t_opt *o)
 			if (n)
 				direcursive(n, o);
 		}
-		l = l->next;
+		free(l);
+		l = tmp;
 	}
 	return (1);
 }

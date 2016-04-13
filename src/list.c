@@ -6,7 +6,7 @@
 /*   By: bndao <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/20 14:40:29 by bndao             #+#    #+#             */
-/*   Updated: 2016/04/06 03:16:23 by bndao            ###   ########.fr       */
+/*   Updated: 2016/04/13 08:10:18 by bndao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ t_l					*getdir_nodes(char *str, t_opt *o)
 	dir = NULL;
 	if (!(dir = opendir(str)))
 	{
+		ft_putstr("ft_ls: ");
 		perror(str);
 		return (NULL);
 	}
